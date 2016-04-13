@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/constants.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/constants.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">38.43</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">219</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">4.67</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.18</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**=========================================================
+ * Module: constants.js
+ * Define constants to inject across the application
+ =========================================================*/
+
+/**
+ * @ngdoc constant
+ * @name max-ui
+ * @description Defines the AngularJs application constants
+ */
+(function() {
+    &#039;use strict&#039;;
+
+    angular
+        .module(&#039;app.core&#039;)
+        .constant(&#039;toastr&#039;, window.toastr)
+        .constant(&#039;APP_COLORS&#039;, {
+            &#039;primary&#039;: &#039;#5d9cec&#039;,
+            &#039;success&#039;: &#039;#27c24c&#039;,
+            &#039;info&#039;: &#039;#23b7e5&#039;,
+            &#039;warning&#039;: &#039;#ff902b&#039;,
+            &#039;danger&#039;: &#039;#f05050&#039;,
+            &#039;inverse&#039;: &#039;#131e26&#039;,
+            &#039;green&#039;: &#039;#37bc9b&#039;,
+            &#039;pink&#039;: &#039;#f532e5&#039;,
+            &#039;purple&#039;: &#039;#7266ba&#039;,
+            &#039;dark&#039;: &#039;#3a3f51&#039;,
+            &#039;yellow&#039;: &#039;#fad732&#039;,
+            &#039;gray-darker&#039;: &#039;#232735&#039;,
+            &#039;gray-dark&#039;: &#039;#3a3f51&#039;,
+            &#039;gray&#039;: &#039;#dde6e9&#039;,
+            &#039;gray-light&#039;: &#039;#e4eaec&#039;,
+            &#039;gray-lighter&#039;: &#039;#edf1f2&#039;
+        })
+        .constant(&#039;APP_MEDIAQUERY&#039;, {
+            &#039;desktopLG&#039;: 1200,
+            &#039;desktop&#039;: 992,
+            &#039;tablet&#039;: 768,
+            &#039;mobile&#039;: 480
+        })
+        .constant(&#039;APP_REQUIRES&#039;, {
+            // jQuery based and standalone scripts
+            scripts: {
+                &#039;whirl&#039;: [&#039;build/vendor/whirl/dist/whirl.css&#039;],
+                &#039;classyloader&#039;: [&#039;build/vendor/jquery-classyloader/js/jquery.classyloader.min.js&#039;],
+                &#039;animo&#039;: [&#039;build/vendor/animo.js/animo.js&#039;],
+                &#039;fastclick&#039;: [&#039;build/vendor/fastclick/lib/fastclick.js&#039;],
+                &#039;modernizr&#039;: [&#039;build/vendor/modernizr/modernizr.js&#039;],
+                &#039;animate&#039;: [&#039;build/vendor/animate.css/animate.min.css&#039;],
+                &#039;icons&#039;: [
+                    &#039;build/vendor/fontawesome/css/font-awesome.min.css&#039;,
+                    &#039;build/vendor/simple-line-icons/css/simple-line-icons.css&#039;
+                ],
+                &#039;sparklines&#039;: [&#039;build/vendor/sparklines/jquery.sparkline.min.js&#039;],
+                &#039;slider&#039;: [
+                    &#039;build/vendor/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js&#039;,
+                    &#039;build/vendor/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css&#039;
+                ],
+                &#039;wysiwyg&#039;: [&#039;build/vendor/bootstrap-wysiwyg/bootstrap-wysiwyg.js&#039;,
+                    &#039;build/vendor/bootstrap-wysiwyg/external/jquery.hotkeys.js&#039;],
+                &#039;slimscroll&#039;: [&#039;build/vendor/slimScroll/jquery.slimscroll.min.js&#039;],
+                &#039;screenfull&#039;: [&#039;build/vendor/screenfull/dist/screenfull.js&#039;],
+                &#039;vector-map&#039;: [
+                    &#039;build/vendor/ika.jvectormap/jquery-jvectormap-2.0.2.min.js&#039;,
+                    &#039;build/vendor/ika.jvectormap/jquery-jvectormap-2.0.2.css&#039;
+                ],
+                &#039;loadGoogleMapsJS&#039;: [&#039;build/vendor/gmap/load-google-maps.js&#039;],
+                &#039;google-map&#039;: [&#039;build/vendor/jQuery-gMap/jquery.gmap.min.js&#039;],
+                &#039;flot-chart&#039;: [&#039;build/vendor/Flot/jquery.flot.js&#039;],
+                &#039;flot-chart-plugins&#039;: [
+                    &#039;build/vendor/flot.tooltip/js/jquery.flot.tooltip.min.js&#039;,
+                    &#039;build/vendor/Flot/jquery.flot.resize.js&#039;,
+                    &#039;build/vendor/Flot/jquery.flot.pie.js&#039;,
+                    &#039;build/vendor/Flot/jquery.flot.time.js&#039;,
+                    &#039;build/vendor/Flot/jquery.flot.categories.js&#039;,
+                    &#039;build/vendor/flot-spline/js/jquery.flot.spline.min.js&#039;],
+                // jquery core and widgets
+                &#039;jquery-ui&#039;: [
+                    &#039;build/vendor/jquery-ui/ui/core.js&#039;,
+                    &#039;build/vendor/jquery-ui/ui/widget.js&#039;],
+                // loads only jquery required modules and touch support
+                &#039;jquery-ui-widgets&#039;: [
+                    &#039;build/vendor/jquery-ui/ui/core.js&#039;,
+                    &#039;build/vendor/jquery-ui/ui/widget.js&#039;,
+                    &#039;build/vendor/jquery-ui/ui/mouse.js&#039;,
+                    &#039;build/vendor/jquery-ui/ui/draggable.js&#039;,
+                    &#039;build/vendor/jquery-ui/ui/droppable.js&#039;,
+                    &#039;build/vendor/jquery-ui/ui/sortable.js&#039;,
+                    &#039;build/vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js&#039;
+                ],
+                &#039;moment&#039;: [&#039;build/vendor/moment/min/moment-with-locales.min.js&#039;],
+                &#039;inputmask&#039;: [&#039;build/vendor/jquery.inputmask/dist/jquery.inputmask.bundle.min.js&#039;],
+                &#039;flatdoc&#039;: [&#039;build/vendor/flatdoc/flatdoc.js&#039;],
+                &#039;codemirror&#039;: [
+                    &#039;build/vendor/codemirror/lib/codemirror.js&#039;,
+                    &#039;build/vendor/codemirror/lib/codemirror.css&#039;
+                ],
+                // modes for common web files
+                &#039;codemirror-modes-web&#039;: [
+                    &#039;build/vendor/codemirror/mode/javascript/javascript.js&#039;,
+                    &#039;build/vendor/codemirror/mode/xml/xml.js&#039;,
+                    &#039;build/vendor/codemirror/mode/htmlmixed/htmlmixed.js&#039;,
+                    &#039;build/vendor/codemirror/mode/css/css.js&#039;
+                ],
+                &#039;taginput&#039;: [
+                    &#039;build/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css&#039;,
+                    &#039;build/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js&#039;
+                ],
+                &#039;filestyle&#039;: [&#039;build/vendor/bootstrap-filestyle/src/bootstrap-filestyle.js&#039;],
+                &#039;parsley&#039;: [&#039;build/vendor/parsleyjs/dist/parsley.min.js&#039;],
+                &#039;datatables&#039;: [
+                    &#039;build/vendor/datatables/media/js/jquery.dataTables.min.js&#039;,
+                    &#039;build/vendor/datatable-bootstrap/css/dataTables.bootstrap.css&#039;
+                ],
+                &#039;datatables-pugins&#039;: [
+                    &#039;build/vendor/datatable-bootstrap/js/dataTables.bootstrap.js&#039;,
+                    &#039;build/vendor/datatable-bootstrap/js/dataTables.bootstrapPagination.js&#039;,
+                    &#039;build/vendor/datatables-colvis/js/dataTables.colVis.js&#039;,
+                    &#039;build/vendor/datatables-colvis/css/dataTables.colVis.css&#039;],
+                &#039;fullcalendar&#039;: [
+                    &#039;build/vendor/fullcalendar/dist/fullcalendar.min.js&#039;,
+                    &#039;build/vendor/fullcalendar/dist/fullcalendar.css&#039;
+                ],
+                &#039;gcal&#039;: [&#039;build/vendor/fullcalendar/dist/gcal.js&#039;],
+                &#039;nestable&#039;: [&#039;build/vendor/nestable/jquery.nestable.js&#039;],
+                &#039;chartjs&#039;: [&#039;build/vendor/Chart.js/Chart.js&#039;]
+            },
+            // Angular based script (use the right module name)
+            modules: [
+                {
+                    name: &#039;toaster&#039;,
+                    files: [
+                        &#039;build/vendor/angularjs-toaster/toaster.js&#039;,
+                        &#039;build/vendor/angularjs-toaster/toaster.css&#039;
+                    ]
+                },
+                {
+                    name: &#039;localytics.directives&#039;,
+                    files: [
+                        &#039;build/vendor/chosen_v1.2.0/chosen.jquery.min.js&#039;,
+                        &#039;build/vendor/chosen_v1.2.0/chosen.min.css&#039;,
+                        &#039;build/vendor/angular-chosen-localytics/chosen.js&#039;
+                    ]
+                },
+                {
+                    name: &#039;ngDialog&#039;,
+                    files: [
+                        &#039;build/vendor/ngDialog/js/ngDialog.min.js&#039;,
+                        &#039;build/vendor/ngDialog/css/ngDialog.min.css&#039;,
+                        &#039;build/vendor/ngDialog/css/ngDialog-theme-default.min.css&#039;
+                    ]
+                },
+                {
+                    name: &#039;ngWig&#039;,
+                    files: [&#039;build/vendor/ngWig/dist/ng-wig.min.js&#039;]},
+                {
+                    name: &#039;ngTable&#039;,
+                    files: [
+                        &#039;build/vendor/ng-table/dist/ng-table.min.js&#039;,
+                        &#039;build/vendor/ng-table/dist/ng-table.min.css&#039;
+                    ]
+                },
+                {
+                    name: &#039;ngTableExport&#039;,
+                    files: [&#039;build/vendor/ng-table-export/ng-table-export.js&#039;]
+                },
+                {
+                    name: &#039;angularBootstrapNavTree&#039;,
+                    files: [
+                        &#039;build/vendor/angular-bootstrap-nav-tree/dist/abn_tree_directive.js&#039;,
+                        &#039;build/vendor/angular-bootstrap-nav-tree/dist/abn_tree.css&#039;
+                    ]
+                },
+                {
+                    name: &#039;htmlSortable&#039;,
+                    files: [
+                        &#039;build/vendor/html.sortable/dist/html.sortable.js&#039;,
+                        &#039;build/vendor/html.sortable/dist/html.sortable.angular.js&#039;
+                    ]
+                },
+                {
+                    name: &#039;xeditable&#039;,
+                    files: [
+                        &#039;build/vendor/angular-xeditable/dist/js/xeditable.js&#039;,
+                        &#039;build/vendor/angular-xeditable/dist/css/xeditable.css&#039;
+                    ]
+                },
+                {
+                    name: &#039;angularFileUpload&#039;,
+                    files: [&#039;build/vendor/angular-file-upload/angular-file-upload.js&#039;]
+                },
+                {
+                    name: &#039;ngImgCrop&#039;,
+                    files: [
+                        &#039;build/vendor/ng-img-crop/compile/unminified/ng-img-crop.js&#039;,
+                        &#039;build/vendor/ng-img-crop/compile/unminified/ng-img-crop.css&#039;
+                    ]
+                },
+                {
+                    name: &#039;ui.select&#039;,
+                    files: [
+                        &#039;build/vendor/angular-ui-select/dist/select.js&#039;,
+                        &#039;build/vendor/angular-ui-select/dist/select.css&#039;
+                    ]
+                },
+                {
+                    name: &#039;ui.codemirror&#039;,
+                    files: [&#039;build/vendor/angular-ui-codemirror/ui-codemirror.js&#039;]},
+                {
+                    name: &#039;angular-carousel&#039;,
+                    files: [
+                        &#039;build/vendor/angular-carousel/dist/angular-carousel.css&#039;,
+                        &#039;build/vendor/angular-carousel/dist/angular-carousel.js&#039;
+                    ]
+                },
+                {
+                    name: &#039;ngGrid&#039;,
+                    files: [
+                        &#039;build/vendor/ng-grid/build/ng-grid.min.js&#039;,
+                        &#039;build/vendor/ng-grid/ng-grid.css&#039;
+                    ]
+                },
+                {
+                    name: &#039;infinite-scroll&#039;,
+                    files: [&#039;build/vendor/ngInfiniteScroll/build/ng-infinite-scroll.js&#039;]
+                }
+            ]
+        })
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url 'http://repo.spring.io/plugins-release' }
+        maven { url 'http://repo.spring.io/milestone' }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: spring_boot_version
+        classpath group: 'org.springframework.build.gradle', name: 'propdeps-plugin', version: '0.0.7'
+    }
+}
+
+apply plugin: 'spring-boot'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+if (project.hasProperty('prod')) {
+    apply from: 'profile_prod.gradle'
+} else if (project.hasProperty('test')) {
+    apply from: 'profile_test.gradle'
+} else {
+    apply from: 'profile_dev.gradle'
+}
+
+version = '0.0.1-SNAPSHOT'
+
+description = "max-ui"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configurations {
+    providedRuntime
+}
+
+repositories {
+    maven { url 'http://repo.spring.io/milestone' }
+    maven { url 'http://repo.spring.io/snapshot' }
+    maven { url 'https://repository.jboss.org/nexus/content/repositories/releases' }
+    maven { url 'https://oss.sonatype.org/content/repositories/releases' }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'http://repo.maven.apache.org/maven2' }
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: spring_boot_version
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-velocity', version: spring_boot_version
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: spring_boot_version
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-redis', version: spring_boot_version
+
+
+    compile group: 'org.springframework.security', name: 'spring-security-cas', version:'4.0.3.RELEASE'
+    compile group: 'org.springframework.session', name: 'spring-session', version:'1.0.2.RELEASE'
+
+    runtime(group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.5.1') {
+        exclude(module: 'commons-logging')
+    }
+
+    compile 'javax.inject:javax.inject:1'
+
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: spring_boot_version) {
+        exclude(module: 'commons-logging')
+    }
+}

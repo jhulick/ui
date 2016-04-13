@@ -1,0 +1,347 @@
+digraph dependencies {
+  node[shape="component",style="filled",colorscheme=paired12]
+
+
+    node[shape="component"]
+    "max-ui"[label="max-ui", color=1]
+
+    
+
+
+    node[shape="ellipse"]
+    
+      "RouteHelpers"[label="RouteHelpers", fillcolor=2]
+      "max-ui" -> "RouteHelpers"
+    
+
+
+    
+
+    
+      "browser"[label="browser", color=5]
+      "max-ui" -> "browser"
+    
+      "gmap"[label="gmap", color=5]
+      "max-ui" -> "gmap"
+    
+      "navSearch"[label="navSearch", color=5]
+      "max-ui" -> "navSearch"
+    
+      "toggleStateService"[label="toggleStateService", color=5]
+      "max-ui" -> "toggleStateService"
+    
+      "Utils"[label="Utils", color=5]
+      "max-ui" -> "Utils"
+    
+      "vectorMap"[label="vectorMap", color=5]
+      "max-ui" -> "vectorMap"
+    
+      "ChartData"[label="ChartData", color=5]
+      "max-ui" -> "ChartData"
+    
+
+    
+      "appStart"[label="appStart", color=6]
+      "max-ui" -> "appStart"
+    
+      "colors"[label="colors", color=6]
+      "max-ui" -> "colors"
+    
+
+    node[shape="cds"]
+    
+
+    
+      "href"[label="href", color=3]
+      "max-ui" -> "href"
+    
+      "animateEnabled"[label="animateEnabled", color=3]
+      "max-ui" -> "animateEnabled"
+    
+      "chartjs"[label="chartjs", color=3]
+      "max-ui" -> "chartjs"
+    
+      "linechart"[label="linechart", color=3]
+      "max-ui" -> "linechart"
+    
+      "barchart"[label="barchart", color=3]
+      "max-ui" -> "barchart"
+    
+      "radarchart"[label="radarchart", color=3]
+      "max-ui" -> "radarchart"
+    
+      "polarchart"[label="polarchart", color=3]
+      "max-ui" -> "polarchart"
+    
+      "piechart"[label="piechart", color=3]
+      "max-ui" -> "piechart"
+    
+      "doughnutchart"[label="doughnutchart", color=3]
+      "max-ui" -> "doughnutchart"
+    
+      "donutchart"[label="donutchart", color=3]
+      "max-ui" -> "donutchart"
+    
+      "classyloader"[label="classyloader", color=3]
+      "max-ui" -> "classyloader"
+    
+      "resetKey"[label="resetKey", color=3]
+      "max-ui" -> "resetKey"
+    
+      "filestyle"[label="filestyle", color=3]
+      "max-ui" -> "filestyle"
+    
+      "flatdoc"[label="flatdoc", color=3]
+      "max-ui" -> "flatdoc"
+    
+      "flot"[label="flot", color=3]
+      "max-ui" -> "flot"
+    
+      "formWizard"[label="formWizard", color=3]
+      "max-ui" -> "formWizard"
+    
+      "toggleFullscreen"[label="toggleFullscreen", color=3]
+      "max-ui" -> "toggleFullscreen"
+    
+      "gmap"[label="gmap", color=3]
+      "max-ui" -> "gmap"
+    
+      "loadCss"[label="loadCss", color=3]
+      "max-ui" -> "loadCss"
+    
+      "masked"[label="masked", color=3]
+      "max-ui" -> "masked"
+    
+      "nestable"[label="nestable", color=3]
+      "max-ui" -> "nestable"
+    
+      "notify"[label="notify", color=3]
+      "max-ui" -> "notify"
+    
+      "now"[label="now", color=3]
+      "max-ui" -> "now"
+    
+      "paneltool"[label="paneltool", color=3]
+      "max-ui" -> "paneltool"
+    
+      "panelDismiss"[label="panelDismiss", color=3]
+      "max-ui" -> "panelDismiss"
+    
+      "panelCollapse"[label="panelCollapse", color=3]
+      "max-ui" -> "panelCollapse"
+    
+      "panelRefresh"[label="panelRefresh", color=3]
+      "max-ui" -> "panelRefresh"
+    
+      "animate"[label="animate", color=3]
+      "max-ui" -> "animate"
+    
+      "scrollable"[label="scrollable", color=3]
+      "max-ui" -> "scrollable"
+    
+      "sidebar"[label="sidebar", color=3]
+      "max-ui" -> "sidebar"
+    
+      "skycon"[label="skycon", color=3]
+      "max-ui" -> "skycon"
+    
+      "sparkline"[label="sparkline", color=3]
+      "max-ui" -> "sparkline"
+    
+      "checkAll"[label="checkAll", color=3]
+      "max-ui" -> "checkAll"
+    
+      "tagsinput"[label="tagsinput", color=3]
+      "max-ui" -> "tagsinput"
+    
+      "toggleState"[label="toggleState", color=3]
+      "max-ui" -> "toggleState"
+    
+      "uiSlider"[label="uiSlider", color=3]
+      "max-ui" -> "uiSlider"
+    
+      "validateForm"[label="validateForm", color=3]
+      "max-ui" -> "validateForm"
+    
+      "vectorMap"[label="vectorMap", color=3]
+      "max-ui" -> "vectorMap"
+    
+      "searchOpen"[label="searchOpen", color=3]
+      "max-ui" -> "searchOpen"
+    
+      "searchDismiss"[label="searchDismiss", color=3]
+      "max-ui" -> "searchDismiss"
+    
+
+
+
+
+
+
+
+
+
+    node[shape="ellipse",style="filled", color=9]
+    
+      
+        "appRequires"[label="appRequires"]
+        "appRequires" -> "RouteHelpers"
+      
+    
+
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        "Utils"[label="Utils"]
+        "Utils" -> "classyloader"
+      
+    
+      
+        "$state"[label="$state"]
+        "$state" -> "resetKey"
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        "gmap"[label="gmap"]
+        "gmap" -> "gmap"
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        "dateFilter"[label="dateFilter"]
+        "dateFilter" -> "now"
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        "Utils"[label="Utils"]
+        "Utils" -> "animate"
+      
+    
+      
+    
+      
+        "Utils"[label="Utils"]
+        "Utils" -> "sidebar"
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        "toggle"[label="toggle"]
+        "toggle" -> "toggleState"
+      
+    
+      
+    
+      
+    
+      
+        "vectorMap"[label="vectorMap"]
+        "vectorMap" -> "vectorMap"
+      
+    
+      
+        "navSearch"[label="navSearch"]
+        "navSearch" -> "searchOpen"
+      
+    
+      
+        "navSearch"[label="navSearch"]
+        "navSearch" -> "searchDismiss"
+      
+    
+
+
+    
+
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        "APP_MEDIAQUERY"[label="APP_MEDIAQUERY"]
+        "APP_MEDIAQUERY" -> "Utils"
+      
+    
+      
+    
+      
+        "$resource"[label="$resource"]
+        "$resource" -> "ChartData"
+      
+    
+
+    
+      
+        "$state"[label="$state"]
+        "$state" -> "appStart"
+      
+        "$stateParams"[label="$stateParams"]
+        "$stateParams" -> "appStart"
+      
+    
+      
+        "colors"[label="colors"]
+        "colors" -> "colors"
+      
+    
+
+    
+
+
+}

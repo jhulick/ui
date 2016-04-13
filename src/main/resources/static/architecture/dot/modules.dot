@@ -1,0 +1,86 @@
+digraph dependencies {
+  node[shape="ellipse",style="filled",colorscheme=paired12]
+
+  
+    "max-ui"[label="max-ui", color=1]
+  
+    "app.core"[label="app.core", color=1]
+  
+    "blocks.logger"[label="blocks.logger", color=1]
+  
+    "blocks.exception"[label="blocks.exception", color=1]
+  
+    "app.layout"[label="app.layout", color=1]
+  
+    "app.dashboard"[label="app.dashboard", color=1]
+  
+    "app.charts"[label="app.charts", color=1]
+  
+    "app.maps"[label="app.maps", color=1]
+  
+    "app.tables"[label="app.tables", color=1]
+  
+    "app.sidebar"[label="app.sidebar", color=1]
+  
+    "app.documentation"[label="app.documentation", color=1]
+  
+
+  node[shape="ellipse",style="filled",color=2]
+  
+    
+  
+    
+      "ngAnimate" -> "app.core"
+    
+      "ngStorage" -> "app.core"
+    
+      "ngCookies" -> "app.core"
+    
+      "ngSanitize" -> "app.core"
+    
+      "ngResource" -> "app.core"
+    
+      "ngAria" -> "app.core"
+    
+      "blocks.exception" -> "app.core"
+    
+      "blocks.logger" -> "app.core"
+    
+      "pascalprecht.translate" -> "app.core"
+    
+      "ui.bootstrap" -> "app.core"
+    
+      "ui.router" -> "app.core"
+    
+      "oc.lazyLoad" -> "app.core"
+    
+      "cfp.loadingBar" -> "app.core"
+    
+      "tmh.dynamicLocale" -> "app.core"
+    
+      "ui.utils" -> "app.core"
+    
+      "ngIdle" -> "app.core"
+    
+  
+    
+  
+    
+      "blocks.logger" -> "blocks.exception"
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+}

@@ -1,0 +1,45 @@
+<h3>Chart JS</h3>
+<div ng-controller="ChartJSController as vm" class="container-fluid">
+   <div class="row mb-lg">
+      <div class="col-lg-6">
+         <h4>Line Chart</h4>
+         <div>
+            <canvas linechart="" options="vm.lineOptions" data="vm.lineData" height="120" responsive="true"></canvas>
+         </div>
+      </div>
+      <div class="col-lg-6">
+         <h4>Bar Chart</h4>
+         <div>
+            <canvas barchart="" options="vm.barOptions" data="vm.barData" height="120" responsive="true"></canvas>
+         </div>
+      </div>
+   </div>
+   <div class="row mb-lg">
+      <div class="col-lg-6">
+         <h4>Polar Area Chart</h4>
+         <div>
+            <canvas polarchart="" options="vm.polarOptions" data="vm.polarData" height="180" responsive="true"></canvas>
+         </div>
+      </div>
+      <div class="col-lg-6">
+         <h4>Radar Chart</h4>
+         <div>
+            <canvas radarchart="" options="vm.radarOptions" data="vm.radarData" height="180" responsive="true"></canvas>
+         </div>
+      </div>
+   </div>
+   <div class="row mb-lg">
+      <div class="col-lg-6">
+         <h4>Pie Chart</h4>
+         <div>
+            <canvas doughnutchart="" options="vm.pieOptions" data="vm.pieData" height="80" responsive="true"></canvas>
+         </div>
+      </div>
+      <div class="col-lg-6">
+         <h4>Doughnut Chart</h4>
+         <div>
+            <canvas doughnutchart="" options="vm.doughnutOptions" data="vm.doughnutData" height="80" responsive="true"></canvas>
+         </div>
+      </div>
+   </div>
+</div>

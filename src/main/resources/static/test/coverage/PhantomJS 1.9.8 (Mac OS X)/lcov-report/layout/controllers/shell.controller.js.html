@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for layout/controllers/shell.controller.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">layout/controllers/shell.controller.js</span></h1>
+    <h2>
+        Statements: <span class="metric">58% <small>(29 / 50)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">33.33% <small>(4 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">31.25% <small>(5 / 16)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">58% <small>(29 / 50)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">layout/controllers/</a> &#187; shell.controller.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**=========================================================
+ * Module: main.js
+ * Main Application Controller
+ =========================================================*/
+&nbsp;
+(function () {
+    'use strict';
+&nbsp;
+    angular
+        .module('app.layout')
+        .controller('Shell', Shell);
+&nbsp;
+    Shell.$inject = ['$rootScope', '$scope', '$state', '$translate', '$window', '$localStorage', '$timeout', 'toggleStateService', 'colors', 'browser', 'cfpLoadingBar'];
+&nbsp;
+    function Shell($rootScope, $scope, $state, $translate, $window, $localStorage, $timeout, toggle, colors, browser, cfpLoadingBar) {
+&nbsp;
+        // Setup the layout mode
+        $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout == 'app-h');
+&nbsp;
+        // Loading bar transition
+        // -----------------------------------
+        var thBar;
+        $rootScope.$on('$stateChangeStart', <span class="fstat-no" title="function not covered" >function (event, toState, toParams, fromState, fromParams) {</span>
+<span class="cstat-no" title="statement not covered" >            if ($('.wrapper &gt; section').length) {// check if bar container exists</span>
+<span class="cstat-no" title="statement not covered" >                thBar = $timeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    cfpLoadingBar.start();</span>
+                }, 0); // sets a latency Threshold
+            }
+        });
+        $rootScope.$on('$stateChangeSuccess', <span class="fstat-no" title="function not covered" >function (event, toState, toParams, fromState, fromParams) {</span>
+<span class="cstat-no" title="statement not covered" >            event.targetScope.$watch("$viewContentLoaded", <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                $timeout.cancel(thBar);</span>
+<span class="cstat-no" title="statement not covered" >                cfpLoadingBar.complete();</span>
+            });
+        });
+&nbsp;
+        // Hook not found
+        $rootScope.$on('$stateNotFound',
+<span class="fstat-no" title="function not covered" >            function (event, unfoundState, fromState, fromParams) {</span>
+<span class="cstat-no" title="statement not covered" >                console.log(unfoundState.to); </span>// "lazy.state"
+<span class="cstat-no" title="statement not covered" >                console.log(unfoundState.toParams); </span>// {a:1, b:2}
+<span class="cstat-no" title="statement not covered" >                console.log(unfoundState.options); </span>// {inherit:false} + default options
+            });
+        // Hook error
+        $rootScope.$on('$stateChangeError',
+<span class="fstat-no" title="function not covered" >            function (event, toState, toParams, fromState, fromParams, error) {</span>
+<span class="cstat-no" title="statement not covered" >                console.log(error);</span>
+            });
+        // Hook success
+        $rootScope.$on('$stateChangeSuccess',
+<span class="fstat-no" title="function not covered" >            function (event, toState, toParams, fromState, fromParams) {</span>
+                // display new view from top
+<span class="cstat-no" title="statement not covered" >                $window.scrollTo(0, 0);</span>
+                // Save the route title
+<span class="cstat-no" title="statement not covered" >                $rootScope.currTitle = $state.current.title;</span>
+            });
+&nbsp;
+        $rootScope.currTitle = $state.current.title;
+        $rootScope.pageTitle = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            var title = $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);</span>
+<span class="cstat-no" title="statement not covered" >            document.title = title;</span>
+<span class="cstat-no" title="statement not covered" >            return title;</span>
+        };
+&nbsp;
+        // iPad may presents ghost click issues
+        // if( ! browser.ipad )
+        // FastClick.attach(document.body);
+&nbsp;
+        // Close submenu when sidebar change from collapsed to normal
+        $rootScope.$watch('app.layout.isCollapsed', function (newValue, oldValue) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (newValue === false)
+                $rootScope.$broadcast('closeSidebarMenu');
+        });
+&nbsp;
+        // Restore layout settings
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (angular.isDefined($localStorage.layout))
+<span class="cstat-no" title="statement not covered" >            $scope.app.layout = $localStorage.layout;</span>
+        else
+            $localStorage.layout = $scope.app.layout;
+&nbsp;
+        $rootScope.$watch("app.layout", function () {
+            $localStorage.layout = $scope.app.layout;
+        }, true);
+&nbsp;
+&nbsp;
+        // Allows to use branding color with interpolation
+        // {{ colorByName('primary') }}
+        $scope.colorByName = colors.byName;
+&nbsp;
+        // Hides/show user avatar on sidebar
+        $scope.toggleUserBlock = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            $scope.$broadcast('toggleUserBlock');</span>
+        };
+&nbsp;
+        // Internationalization
+        // ----------------------
+&nbsp;
+        $scope.language = {
+            // Handles language dropdown
+            listIsOpen: false,
+            // list of available languages
+            available: {
+                'en': 'English',
+                'es_AR': 'Español'
+            },
+            // display always the current ui language
+            init: function () {
+                var proposedLanguage = $translate.proposedLanguage() || <span class="branch-1 cbranch-no" title="branch not covered" >$translate.use();</span>
+                var preferredLanguage = $translate.preferredLanguage(); // we know we have set a preferred one in app.config
+                $scope.language.selected = $scope.language.available[(proposedLanguage || <span class="branch-1 cbranch-no" title="branch not covered" >preferredLanguage)</span>];
+            },
+            set: <span class="fstat-no" title="function not covered" >function (localeId, ev) {</span>
+                // Set the new idiom
+<span class="cstat-no" title="statement not covered" >                $translate.use(localeId);</span>
+                // save a reference for the current language
+<span class="cstat-no" title="statement not covered" >                $scope.language.selected = $scope.language.available[localeId];</span>
+                // finally toggle dropdown
+<span class="cstat-no" title="statement not covered" >                $scope.language.listIsOpen = !$scope.language.listIsOpen;</span>
+            }
+        };
+&nbsp;
+        $scope.language.init();
+&nbsp;
+        // Restore application classes state
+        toggle.restoreState($(document.body));
+&nbsp;
+        // cancel click event easily
+        $rootScope.cancel = <span class="fstat-no" title="function not covered" >function ($event) {</span>
+<span class="cstat-no" title="statement not covered" >            $event.stopPropagation();</span>
+        };
+&nbsp;
+    }
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Apr 22 2015 22:33:38 GMT-0400 (EDT)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

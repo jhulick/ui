@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - modules/charts/tests/mock-chart-data.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>modules/charts/tests/mock-chart-data.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">55.93</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">415</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">9.07</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.25</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/* jshint -W079 */
+var mockChartData = (function() {
+    return {
+        getBarChart: getBarChart,
+        getBarstackedChart: getBarstackedChart,
+        getMockStates: getMockStates,
+        getSplineChart: getSplineChart,
+        getAreaChart: getAreaChart,
+        getLineChart: getLineChart,
+        getPieChart: getPieChart,
+        getDonutChart: getDonutChart,
+        getEnData: getEnData
+    };
+
+    function getMockStates() {
+        return [
+            {
+                state: &#039;app.chart-flot&#039;,
+                config: {
+                    url: &#039;/chart-flot&#039;,
+                    title: &#039;Chart Flot&#039;,
+                    templateUrl: &#039;js/modules/charts/views/chart-flot.html&#039;
+                }
+            },
+            {
+                state: &#039;app.chart-radial&#039;,
+                config: {
+                    url: &#039;/chart-radial&#039;,
+                    title: &#039;Chart Radial&#039;,
+                    templateUrl: &#039;js/modules/charts/views/chart-radial.html&#039;
+                }
+            },
+            {
+                state: &#039;app.chart-js&#039;,
+                config: {
+                    url: &#039;/chart-js&#039;,
+                    title: &#039;Chart JS&#039;,
+                    templateUrl: &#039;js/modules/charts/views/chart-js.html&#039;
+                }
+            }
+        ];
+    }
+
+    function getBarChart() {
+        return [
+            {
+                &quot;label&quot;: &quot;Sales&quot;,
+                &quot;color&quot;: &quot;#9cd159&quot;,
+                &quot;data&quot;: [
+                    [&quot;Jan&quot;, 27],
+                    [&quot;Feb&quot;, 82],
+                    [&quot;Mar&quot;, 56],
+                    [&quot;Apr&quot;, 14],
+                    [&quot;May&quot;, 28],
+                    [&quot;Jun&quot;, 77],
+                    [&quot;Jul&quot;, 23],
+                    [&quot;Aug&quot;, 49],
+                    [&quot;Sep&quot;, 81],
+                    [&quot;Oct&quot;, 20]
+                ]
+            }
+        ];
+    }
+
+    function getBarstackedChart() {
+        return [{
+            &quot;label&quot;: &quot;Tweets&quot;,
+            &quot;color&quot;: &quot;#51bff2&quot;,
+            &quot;data&quot;: [
+                [&quot;Jan&quot;, 56],
+                [&quot;Feb&quot;, 81],
+                [&quot;Mar&quot;, 97],
+                [&quot;Apr&quot;, 44],
+                [&quot;May&quot;, 24],
+                [&quot;Jun&quot;, 85],
+                [&quot;Jul&quot;, 94],
+                [&quot;Aug&quot;, 78],
+                [&quot;Sep&quot;, 52],
+                [&quot;Oct&quot;, 17],
+                [&quot;Nov&quot;, 90],
+                [&quot;Dec&quot;, 62]
+            ]
+        }, {
+            &quot;label&quot;: &quot;Likes&quot;,
+            &quot;color&quot;: &quot;#4a8ef1&quot;,
+            &quot;data&quot;: [
+                [&quot;Jan&quot;, 69],
+                [&quot;Feb&quot;, 135],
+                [&quot;Mar&quot;, 14],
+                [&quot;Apr&quot;, 100],
+                [&quot;May&quot;, 100],
+                [&quot;Jun&quot;, 62],
+                [&quot;Jul&quot;, 115],
+                [&quot;Aug&quot;, 22],
+                [&quot;Sep&quot;, 104],
+                [&quot;Oct&quot;, 132],
+                [&quot;Nov&quot;, 72],
+                [&quot;Dec&quot;, 61]
+            ]
+        }, {
+            &quot;label&quot;: &quot;+1&quot;,
+            &quot;color&quot;: &quot;#f0693a&quot;,
+            &quot;data&quot;: [
+                [&quot;Jan&quot;, 29],
+                [&quot;Feb&quot;, 36],
+                [&quot;Mar&quot;, 47],
+                [&quot;Apr&quot;, 21],
+                [&quot;May&quot;, 5],
+                [&quot;Jun&quot;, 49],
+                [&quot;Jul&quot;, 37],
+                [&quot;Aug&quot;, 44],
+                [&quot;Sep&quot;, 28],
+                [&quot;Oct&quot;, 9],
+                [&quot;Nov&quot;, 12],
+                [&quot;Dec&quot;, 35]
+            ]
+        }];
+    }
+
+    function getSplineChart() {
+        return [{
+            &quot;label&quot;: &quot;Home&quot;,
+            &quot;color&quot;: &quot;#1ba3cd&quot;,
+            &quot;data&quot;: [
+                [&quot;1&quot;, 38],
+                [&quot;2&quot;, 40],
+                [&quot;3&quot;, 42],
+                [&quot;4&quot;, 48],
+                [&quot;5&quot;, 50],
+                [&quot;6&quot;, 70],
+                [&quot;7&quot;, 145],
+                [&quot;8&quot;, 70],
+                [&quot;9&quot;, 59],
+                [&quot;10&quot;, 48],
+                [&quot;11&quot;, 38],
+                [&quot;12&quot;, 29],
+                [&quot;13&quot;, 30],
+                [&quot;14&quot;, 22],
+                [&quot;15&quot;, 28]
+            ]
+        }, {
+            &quot;label&quot;: &quot;Overall&quot;,
+            &quot;color&quot;: &quot;#3a3f51&quot;,
+            &quot;data&quot;: [
+                [&quot;1&quot;, 16],
+                [&quot;2&quot;, 18],
+                [&quot;3&quot;, 17],
+                [&quot;4&quot;, 16],
+                [&quot;5&quot;, 30],
+                [&quot;6&quot;, 110],
+                [&quot;7&quot;, 19],
+                [&quot;8&quot;, 18],
+                [&quot;9&quot;, 110],
+                [&quot;10&quot;, 19],
+                [&quot;11&quot;, 16],
+                [&quot;12&quot;, 10],
+                [&quot;13&quot;, 20],
+                [&quot;14&quot;, 10],
+                [&quot;15&quot;, 20]
+            ]
+        }]
+    }
+
+    function getAreaChart() {
+        return [{
+            &quot;label&quot;: &quot;Uniques&quot;,
+            &quot;color&quot;: &quot;#aad874&quot;,
+            &quot;data&quot;: [
+                [&quot;Mar&quot;, 50],
+                [&quot;Apr&quot;, 84],
+                [&quot;May&quot;, 52],
+                [&quot;Jun&quot;, 88],
+                [&quot;Jul&quot;, 69],
+                [&quot;Aug&quot;, 92],
+                [&quot;Sep&quot;, 58]
+            ]
+        }, {
+            &quot;label&quot;: &quot;Recurrent&quot;,
+            &quot;color&quot;: &quot;#7dc7df&quot;,
+            &quot;data&quot;: [
+                [&quot;Mar&quot;, 13],
+                [&quot;Apr&quot;, 44],
+                [&quot;May&quot;, 44],
+                [&quot;Jun&quot;, 27],
+                [&quot;Jul&quot;, 38],
+                [&quot;Aug&quot;, 11],
+                [&quot;Sep&quot;, 39]
+            ]
+        }];
+    }
+
+    function getLineChart() {
+        return [
+            {
+                &quot;label&quot;: &quot;Complete&quot;,
+                &quot;color&quot;: &quot;#5ab1ef&quot;,
+                &quot;data&quot;: [
+                    [&quot;Jan&quot;, 188],
+                    [&quot;Feb&quot;, 183],
+                    [&quot;Mar&quot;, 185],
+                    [&quot;Apr&quot;, 199],
+                    [&quot;May&quot;, 190],
+                    [&quot;Jun&quot;, 194],
+                    [&quot;Jul&quot;, 194],
+                    [&quot;Aug&quot;, 184],
+                    [&quot;Sep&quot;, 74]
+                ]
+            }, {
+                &quot;label&quot;: &quot;In Progress&quot;,
+                &quot;color&quot;: &quot;#f5994e&quot;,
+                &quot;data&quot;: [
+                    [&quot;Jan&quot;, 153],
+                    [&quot;Feb&quot;, 116],
+                    [&quot;Mar&quot;, 136],
+                    [&quot;Apr&quot;, 119],
+                    [&quot;May&quot;, 148],
+                    [&quot;Jun&quot;, 133],
+                    [&quot;Jul&quot;, 118],
+                    [&quot;Aug&quot;, 161],
+                    [&quot;Sep&quot;, 59]
+                ]
+            }, {
+                &quot;label&quot;: &quot;Cancelled&quot;,
+                &quot;color&quot;: &quot;#d87a80&quot;,
+                &quot;data&quot;: [
+                    [&quot;Jan&quot;, 111],
+                    [&quot;Feb&quot;, 97],
+                    [&quot;Mar&quot;, 93],
+                    [&quot;Apr&quot;, 110],
+                    [&quot;May&quot;, 102],
+                    [&quot;Jun&quot;, 93],
+                    [&quot;Jul&quot;, 92],
+                    [&quot;Aug&quot;, 92],
+                    [&quot;Sep&quot;, 44]
+                ]
+            }
+        ];
+    }
+
+    function getPieChart() {
+        return [{
+            &quot;label&quot;: &quot;jQuery&quot;,
+            &quot;color&quot;: &quot;#4acab4&quot;,
+            &quot;data&quot;: 30
+        }, {
+            &quot;label&quot;: &quot;CSS&quot;,
+            &quot;color&quot;: &quot;#ffea88&quot;,
+            &quot;data&quot;: 40
+        }, {
+            &quot;label&quot;: &quot;LESS&quot;,
+            &quot;color&quot;: &quot;#ff8153&quot;,
+            &quot;data&quot;: 90
+        }, {
+            &quot;label&quot;: &quot;SASS&quot;,
+            &quot;color&quot;: &quot;#878bb6&quot;,
+            &quot;data&quot;: 75
+        }, {
+            &quot;label&quot;: &quot;Jade&quot;,
+            &quot;color&quot;: &quot;#b2d767&quot;,
+            &quot;data&quot;: 120
+        }];
+    }
+
+    function getDonutChart() {
+        return [
+            {
+                &quot;color&quot; : &quot;#39C558&quot;,
+                &quot;data&quot; : 60,
+                &quot;label&quot; : &quot;Coffee&quot;
+            },
+            {
+                &quot;color&quot; : &quot;#00b4ff&quot;,
+                &quot;data&quot; : 90,
+                &quot;label&quot; : &quot;CSS&quot;
+            },
+            {
+                &quot;color&quot; : &quot;#FFBE41&quot;,
+                &quot;data&quot; : 50,
+                &quot;label&quot; : &quot;LESS&quot;
+            },
+            {
+                &quot;color&quot; : &quot;#ff3e43&quot;,
+                &quot;data&quot; : 80,
+                &quot;label&quot; : &quot;Jade&quot;
+            },
+            {
+                &quot;color&quot; : &quot;#937fc7&quot;,
+                &quot;data&quot; : 116,
+                &quot;label&quot; : &quot;AngularJS&quot;
+            }
+        ];
+    }
+
+    function getEnData() {
+        return {
+            &quot;dashboard&quot;: {
+                &quot;WELCOME&quot;: &quot;Welcome to {{appName}}&quot;
+            },
+            &quot;topbar&quot;: {
+                &quot;messages&quot;: {
+                    &quot;UNREAD&quot;: &quot;Unread messages&quot;,
+                    &quot;MORE&quot;: &quot;More messages&quot;
+                },
+                &quot;search&quot;: {
+                    &quot;PLACEHOLDER&quot;: &quot;Type and hit enter..&quot;
+                },
+                &quot;notification&quot;: {
+                    &quot;MORE&quot;: &quot;More notifications&quot;
+                }
+            },
+            &quot;offsidebar&quot;: {
+                &quot;setting&quot;: {
+                    &quot;SETTINGS&quot;: &quot;Settings&quot;,
+                    &quot;THEMES&quot;: &quot;Themes&quot;,
+                    &quot;layout&quot;: {
+                        &quot;FIXED&quot;: &quot;Fixed&quot;,
+                        &quot;COLLAPSED&quot;: &quot;Collapsed&quot;
+                    }
+                },
+                &quot;chat&quot;: {
+                    &quot;CONNECTIONS&quot;: &quot;Connections&quot;,
+                    &quot;SEARCH&quot;: &quot;Search contacts&quot;,
+                    &quot;ONLINE&quot;: &quot;ONLINE&quot;,
+                    &quot;OFFLINE&quot;: &quot;OFFLINE&quot;,
+                    &quot;LOAD_MORE&quot;: &quot;Load More&quot;,
+                    &quot;TASK_COMPLETION&quot;: &quot;Tasks completion&quot;,
+                    &quot;QUOTA&quot;: &quot;Upload Quota&quot;
+                }
+            },
+            &quot;sidebar&quot;: {
+                &quot;WELCOME&quot;: &quot;Welcome&quot;,
+                &quot;heading&quot;: {
+                    &quot;HEADER&quot;: &quot;Main Navigation&quot;,
+                    &quot;COMPONENTS&quot;: &quot;Components&quot;,
+                    &quot;MATERIAL&quot;: &quot;Angular Material&quot;,
+                    &quot;MORE&quot;: &quot;More&quot;
+                },
+                &quot;nav&quot;: {
+                    &quot;DASHBOARD&quot;: &quot;Dashboard&quot;,
+                    &quot;WIDGETS&quot;: &quot;Widgets&quot;,
+                    &quot;WIDGETS&quot;: &quot;Widgets&quot;,
+                    &quot;DOCUMENTATION&quot;: &quot;Documentation&quot;,
+                    &quot;material&quot;: {
+                        &quot;AUTOCOMPLETE&quot;: &quot;Autocomplete&quot;,
+                        &quot;BUTTON&quot;: &quot;Button&quot;,
+                        &quot;CHECKBOX&quot;: &quot;Checkbox&quot;,
+                        &quot;CONTENT&quot;: &quot;Content&quot;,
+                        &quot;DIALOG&quot;: &quot;Dialog&quot;,
+                        &quot;DIVIDER&quot;: &quot;Divider&quot;
+                    },
+                    &quot;element&quot;: {
+                        &quot;ELEMENTS&quot;: &quot;Elements&quot;,
+                        &quot;BUTTON&quot;: &quot;Button&quot;,
+                        &quot;COLOR&quot;: &quot;Colors&quot;,
+                        &quot;NOTIFICATION&quot;: &quot;Notification&quot;,
+                        &quot;INTERACTION&quot;: &quot;Interaction&quot;,
+                        &quot;SPINNER&quot;: &quot;Spinner&quot;,
+                        &quot;ANIMATION&quot;: &quot;Animation&quot;,
+                        &quot;DROPDOWN&quot;: &quot;Dropdown&quot;,
+                        &quot;PANEL&quot;: &quot;Panel&quot;,
+                        &quot;PORTLET&quot;: &quot;Portlet&quot;,
+                        &quot;GRID&quot;: &quot;Grid&quot;,
+                        &quot;GRID_MASONRY&quot;: &quot;Grid Masonry&quot;,
+                        &quot;TYPO&quot;: &quot;Typography&quot;,
+                        &quot;FONT_ICON&quot;: &quot;Font Icons&quot;,
+                        &quot;WEATHER_ICON&quot;: &quot;Weather Icons&quot;
+                    },
+                    &quot;form&quot;: {
+                        &quot;FORM&quot;: &quot;Forms&quot;,
+                        &quot;STANDARD&quot;: &quot;Standard&quot;,
+                        &quot;EXTENDED&quot;: &quot;Extended&quot;,
+                        &quot;VALIDATION&quot;: &quot;Validation&quot;,
+                        &quot;WIZARD&quot;: &quot;Wizard&quot;,
+                        &quot;UPLOAD&quot;: &quot;Upload&quot;
+                    },
+                    &quot;chart&quot;: {
+                        &quot;CHART&quot;: &quot;Charts&quot;,
+                        &quot;FLOT&quot;: &quot;Flot&quot;,
+                        &quot;RADIAL&quot;: &quot;Radial&quot;
+                    },
+                    &quot;table&quot;: {
+                        &quot;TABLE&quot;: &quot;Table&quot;,
+                        &quot;STANDARD&quot;: &quot;Standard&quot;,
+                        &quot;EXTENDED&quot;: &quot;Extended&quot;,
+                        &quot;DATATABLE&quot;: &quot;Datatable&quot;
+                    },
+                    &quot;map&quot;: {
+                        &quot;MAP&quot;: &quot;Maps&quot;,
+                        &quot;GOOGLE&quot;: &quot;Google Map&quot;,
+                        &quot;VECTOR&quot;: &quot;Vector Map&quot;
+                    },
+                    &quot;extra&quot;: {
+                        &quot;EXTRA&quot;: &quot;Extras&quot;,
+                        &quot;MAILBOX&quot;: &quot;Mailbox&quot;,
+                        &quot;TIMELINE&quot;: &quot;Timeline&quot;,
+                        &quot;CALENDAR&quot;: &quot;Calendar&quot;,
+                        &quot;INVOICE&quot;: &quot;Invoice&quot;,
+                        &quot;SEARCH&quot;: &quot;Search&quot;,
+                        &quot;TODO&quot;: &quot;Todo List&quot;,
+                        &quot;PROFILE&quot;: &quot;Profile&quot;
+                    },
+                    &quot;pages&quot;: {
+                        &quot;PAGES&quot;: &quot;Pages&quot;,
+                        &quot;LOGIN&quot;: &quot;Login&quot;,
+                        &quot;REGISTER&quot;: &quot;Register&quot;,
+                        &quot;RECOVER&quot;: &quot;Recover password&quot;,
+                        &quot;PROFILE&quot;: &quot;Profile&quot;,
+                        &quot;LOCK&quot;: &quot;Lock&quot;,
+                        &quot;STARTER&quot;: &quot;Starter Template&quot;
+                    }
+                }
+            }
+        };
+
+    }
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

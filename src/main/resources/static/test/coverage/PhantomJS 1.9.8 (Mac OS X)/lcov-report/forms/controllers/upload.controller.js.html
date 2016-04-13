@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for forms/controllers/upload.controller.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">forms/controllers/upload.controller.js</span></h1>
+    <h2>
+        Statements: <span class="metric">13.33% <small>(4 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">7.14% <small>(1 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">13.33% <small>(4 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">forms/controllers/</a> &#187; upload.controller.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**=========================================================
+ * Module: upload.js
+ =========================================================*/
+&nbsp;
+(function () {
+    'use strict';
+&nbsp;
+    angular
+        .module('app.forms')
+        .controller('FileUploadController', FileUploadController);
+&nbsp;
+    FileUploadController.$inject = ['$scope', 'FileUploader'];
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function FileUploadController($scope, FileUploader) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var uploader = $scope.uploader = new FileUploader({</span>
+            url: 'server/upload.php'
+        });
+&nbsp;
+        // FILTERS
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        uploader.filters.push({</span>
+            name: 'customFilter',
+            fn: <span class="fstat-no" title="function not covered" >function (item /*{File|FileLikeObject}*/, options) {</span>
+<span class="cstat-no" title="statement not covered" >                return this.queue.length &lt; 10;</span>
+            }
+        });
+&nbsp;
+        // CALLBACKS
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        uploader.onWhenAddingFileFailed = <span class="fstat-no" title="function not covered" >function (item /*{File|FileLikeObject}*/, filter, options) {</span></span>
+<span class="cstat-no" title="statement not covered" >            console.info('onWhenAddingFileFailed', item, filter, options);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        uploader.onAfterAddingFile = <span class="fstat-no" title="function not covered" >function (fileItem) {</span></span>
+<span class="cstat-no" title="statement not covered" >            console.info('onAfterAddingFile', fileItem);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        uploader.onAfterAddingAll = <span class="fstat-no" title="function not covered" >function (addedFileItems) {</span></span>
+<span class="cstat-no" title="statement not covered" >            console.info('onAfterAddingAll', addedFileItems);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        uploader.onBeforeUploadItem = <span class="fstat-no" title="function not covered" >function (item) {</span></span>
+<span class="cstat-no" title="statement not covered" >            console.info('onBeforeUploadItem', item);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        uploader.onProgressItem = <span class="fstat-no" title="function not covered" >function (fileItem, progress) {</span></span>
+<span class="cstat-no" title="statement not covered" >            console.info('onProgressItem', fileItem, progress);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        uploader.onProgressAll = <span class="fstat-no" title="function not covered" >function (progress) {</span></span>
+<span class="cstat-no" title="statement not covered" >            console.info('onProgressAll', progress);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        uploader.onSuccessItem = <span class="fstat-no" title="function not covered" >function (fileItem, response, status, headers) {</span></span>
+<span class="cstat-no" title="statement not covered" >            console.info('onSuccessItem', fileItem, response, status, headers);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        uploader.onErrorItem = <span class="fstat-no" title="function not covered" >function (fileItem, response, status, headers) {</span></span>
+<span class="cstat-no" title="statement not covered" >            console.info('onErrorItem', fileItem, response, status, headers);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        uploader.onCancelItem = <span class="fstat-no" title="function not covered" >function (fileItem, response, status, headers) {</span></span>
+<span class="cstat-no" title="statement not covered" >            console.info('onCancelItem', fileItem, response, status, headers);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        uploader.onCompleteItem = <span class="fstat-no" title="function not covered" >function (fileItem, response, status, headers) {</span></span>
+<span class="cstat-no" title="statement not covered" >            console.info('onCompleteItem', fileItem, response, status, headers);</span>
+        };
+<span class="cstat-no" title="statement not covered" >        uploader.onCompleteAll = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            console.info('onCompleteAll');</span>
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        console.info('uploader', uploader);</span>
+    }
+})();</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Apr 30 2015 10:16:22 GMT-0400 (EDT)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

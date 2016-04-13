@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - modules/tables/controllers/ngtable.controller.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>modules/tables/controllers/ngtable.controller.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">58.65</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">214</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">45.97</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.99</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**=========================================================
+ * Module: NGTableCtrl.js
+ * Controller for ngTables
+ =========================================================*/
+
+(function () {
+    &#039;use strict&#039;;
+
+    angular
+        .module(&#039;app.tables&#039;)
+        .controller(&#039;NGTableCtrl&#039;, NGTableCtrl);
+
+    NGTableCtrl.$inject = [&#039;$scope&#039;, &#039;$filter&#039;, &#039;ngTableParams&#039;, &#039;$resource&#039;, &#039;$timeout&#039;, &#039;ngTableDataService&#039;];
+
+    function NGTableCtrl($scope, $filter, ngTableParams, $resource, $timeout, ngTableDataService) {
+        // required for inner references
+        var vm = this;
+
+
+        var data = [
+            {name: &quot;Moroni&quot;, age: 50, money: -10},
+            {name: &quot;Tiancum&quot;, age: 43, money: 120},
+            {name: &quot;Jacob&quot;, age: 27, money: 5.5},
+            {name: &quot;Nephi&quot;, age: 29, money: -54},
+            {name: &quot;Enos&quot;, age: 34, money: 110},
+            {name: &quot;Tiancum&quot;, age: 43, money: 1000},
+            {name: &quot;Jacob&quot;, age: 27, money: -201},
+            {name: &quot;Nephi&quot;, age: 29, money: 100},
+            {name: &quot;Enos&quot;, age: 34, money: -52.5},
+            {name: &quot;Tiancum&quot;, age: 43, money: 52.1},
+            {name: &quot;Jacob&quot;, age: 27, money: 110},
+            {name: &quot;Nephi&quot;, age: 29, money: -55},
+            {name: &quot;Enos&quot;, age: 34, money: 551},
+            {name: &quot;Tiancum&quot;, age: 43, money: -1410},
+            {name: &quot;Jacob&quot;, age: 27, money: 410},
+            {name: &quot;Nephi&quot;, age: 29, money: 100},
+            {name: &quot;Enos&quot;, age: 34, money: -100}
+        ];
+
+        // SELECT ROWS
+        // -----------------------------------
+
+        vm.data = data;
+
+        vm.tableParams3 = new ngTableParams({
+            page: 1,            // show first page
+            count: 10          // count per page
+        }, {
+            total: data.length, // length of data
+            getData: function ($defer, params) {
+                // use build-in angular filter
+                var filteredData = params.filter() ?
+                    $filter(&#039;filter&#039;)(data, params.filter()) :
+                    data;
+                var orderedData = params.sorting() ?
+                    $filter(&#039;orderBy&#039;)(filteredData, params.orderBy()) :
+                    data;
+
+                params.total(orderedData.length); // set total for recalc pagination
+                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            }
+        });
+
+        vm.changeSelection = function (user) {
+            // console.info(user);
+        };
+
+        // EXPORT CSV
+        // -----------------------------------
+
+        var data4 = [{name: &quot;Moroni&quot;, age: 50},
+            {name: &quot;Tiancum&quot;, age: 43},
+            {name: &quot;Jacob&quot;, age: 27},
+            {name: &quot;Nephi&quot;, age: 29},
+            {name: &quot;Enos&quot;, age: 34},
+            {name: &quot;Tiancum&quot;, age: 43},
+            {name: &quot;Jacob&quot;, age: 27},
+            {name: &quot;Nephi&quot;, age: 29},
+            {name: &quot;Enos&quot;, age: 34},
+            {name: &quot;Tiancum&quot;, age: 43},
+            {name: &quot;Jacob&quot;, age: 27},
+            {name: &quot;Nephi&quot;, age: 29},
+            {name: &quot;Enos&quot;, age: 34},
+            {name: &quot;Tiancum&quot;, age: 43},
+            {name: &quot;Jacob&quot;, age: 27},
+            {name: &quot;Nephi&quot;, age: 29},
+            {name: &quot;Enos&quot;, age: 34}];
+
+        vm.tableParams4 = new ngTableParams({
+            page: 1,            // show first page
+            count: 10           // count per page
+        }, {
+            total: data4.length, // length of data4
+            getData: function ($defer, params) {
+                $defer.resolve(data4.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            }
+        });
+
+
+        // SORTING
+        // -----------------------------------
+
+
+        vm.tableParams = new ngTableParams({
+            page: 1,            // show first page
+            count: 10,          // count per page
+            sorting: {
+                name: &#039;asc&#039;     // initial sorting
+            }
+        }, {
+            total: data.length, // length of data
+            getData: function ($defer, params) {
+                // use build-in angular filter
+                var orderedData = params.sorting() ?
+                    $filter(&#039;orderBy&#039;)(data, params.orderBy()) :
+                    data;
+
+                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            }
+        });
+
+        // FILTERS
+        // -----------------------------------
+
+        vm.tableParams2 = new ngTableParams({
+            page: 1,            // show first page
+            count: 10,          // count per page
+            filter: {
+                name: &#039;&#039;,
+                age: &#039;&#039;
+                // name: &#039;M&#039;       // initial filter
+            }
+        }, {
+            total: data.length, // length of data
+            getData: function ($defer, params) {
+                // use build-in angular filter
+                var orderedData = params.filter() ?
+                    $filter(&#039;filter&#039;)(data, params.filter()) :
+                    data;
+
+                vm.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+
+                params.total(orderedData.length); // set total for recalc pagination
+                $defer.resolve(vm.users);
+            }
+        });
+
+        // AJAX
+
+        var Api = $resource(&#039;server/table-data.json&#039;);
+
+        vm.tableParams5 = new ngTableParams({
+            page: 1,            // show first page
+            count: 10           // count per page
+        }, {
+            total: 0,           // length of data
+            counts: [],         // hide page counts control
+            getData: function ($defer, params) {
+
+                // Service using cache to avoid mutiple requests
+                ngTableDataService.getData($defer, params, Api);
+
+                /* direct ajax request to api (perform result pagination on the server)
+                 Api.get(params.url(), function(data) {
+                 $timeout(function() {
+                 // update table params
+                 params.total(data.total);
+                 // set new data
+                 $defer.resolve(data.result);
+                 }, 500);
+                 });
+                 */
+            }
+        });
+    }
+})();
+
+// TODO: move to dataservices
+
+// NOTE: We add the service definition here for quick reference
+(function () {
+    &#039;use strict&#039;;
+
+    angular
+        .module(&#039;app.tables&#039;)
+        .service(&#039;ngTableDataService&#039;, function () {
+
+            var TableData = {
+                cache: null,
+                getData: function ($defer, params, api) {
+                    // if no cache, request data and filter
+                    if (!TableData.cache) {
+                        if (api) {
+                            api.get(function (data) {
+                                TableData.cache = data;
+                                filterdata($defer, params);
+                            });
+                        }
+                    }
+                    else {
+                        filterdata($defer, params);
+                    }
+
+                    function filterdata($defer, params) {
+                        var from = (params.page() - 1) * params.count();
+                        var to = params.page() * params.count();
+                        var filteredData = TableData.cache.result.slice(from, to);
+
+                        params.total(TableData.cache.total);
+                        $defer.resolve(filteredData);
+                    }
+
+                }
+            };
+
+            return TableData;
+
+        })
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

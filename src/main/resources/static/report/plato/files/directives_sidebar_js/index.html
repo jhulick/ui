@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - directives/sidebar.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>directives/sidebar.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.11</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">131</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">15.79</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.98</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**=========================================================
+ * Module: sidebar.js
+ * Wraps the sidebar and handles collapsed state
+ =========================================================*/
+
+(function () {
+    &#039;use strict&#039;;
+
+    angular
+        .module(&#039;max-ui&#039;)
+        .directive(&#039;sidebar&#039;, Sidebar);
+
+    Sidebar.$inject = [&#039;$rootScope&#039;, &#039;$window&#039;, &#039;Utils&#039;];
+
+    function Sidebar($rootScope, $window, Utils) {
+
+        var $win = $($window);
+        var $body = $(&#039;body&#039;);
+        var $scope;
+        var $sidebar;
+        var currentState = $rootScope.$state.current.name;
+
+        var directive = {
+            restrict: &#039;EA&#039;,
+            template: &#039;&lt;nav class=&quot;sidebar&quot; ng-transclude&gt;&lt;/nav&gt;&#039;,
+            transclude: true,
+            replace: true,
+            link: link
+        };
+        return directive;
+
+        /////////////////////////////////////
+
+        function link(scope, element, attrs) {
+            $scope = scope;
+            $sidebar = element;
+
+            var eventName = Utils.isTouch() ? &#039;click&#039; : &#039;mouseenter&#039;;
+            var subNav = $();
+            $sidebar.on(eventName, &#039;.nav &gt; li&#039;, function () {
+
+                if (Utils.isSidebarCollapsed() || $rootScope.app.layout.asideHover) {
+                    subNav.trigger(&#039;mouseleave&#039;);
+                    subNav = toggleMenuItem($(this));
+
+                    // Used to detect click and touch events outside the sidebar
+                    sidebarAddBackdrop();
+                }
+            });
+
+            scope.$on(&#039;closeSidebarMenu&#039;, function () {
+                removeFloatingNav();
+            });
+
+            // Normalize state when resize to mobile
+            $win.on(&#039;resize&#039;, function () {
+                if (!Utils.isMobile()) {
+                    $body.removeClass(&#039;aside-toggled&#039;);
+                }
+            });
+
+            // Adjustment on route changes
+            $rootScope.$on(&#039;$stateChangeStart&#039;, function (event, toState, toParams, fromState, fromParams) {
+                currentState = toState.name;
+                // Hide sidebar automatically on mobile
+                $(&#039;body.aside-toggled&#039;).removeClass(&#039;aside-toggled&#039;);
+
+                $rootScope.$broadcast(&#039;closeSidebarMenu&#039;);
+            });
+        }
+
+        function sidebarAddBackdrop() {
+            var $backdrop = $(&#039;&lt;div/&gt;&#039;, {&#039;class&#039;: &#039;dropdown-backdrop&#039;});
+            $backdrop.insertAfter(&#039;.aside-inner&#039;).on(&quot;click mouseenter&quot;, function () {
+                removeFloatingNav();
+            });
+        }
+
+        // Open the collapse sidebar submenu items when on touch devices
+        // - desktop only opens on hover
+        function toggleTouchItem($element) {
+            $element
+                .siblings(&#039;li&#039;)
+                .removeClass(&#039;open&#039;)
+                .end()
+                .toggleClass(&#039;open&#039;);
+        }
+
+        // Handles hover to open items under collapsed menu
+        // -----------------------------------
+        function toggleMenuItem($listItem) {
+
+            removeFloatingNav();
+
+            var ul = $listItem.children(&#039;ul&#039;);
+            if (!ul.length) return $();
+            if ($listItem.hasClass(&#039;open&#039;)) {
+                toggleTouchItem($listItem);
+                return $();
+            }
+
+            var $aside = $(&#039;.aside&#039;);
+            var $asideInner = $(&#039;.aside-inner&#039;); // for top offset calculation
+            // float aside uses extra padding on aside
+            var mar = parseInt($asideInner.css(&#039;padding-top&#039;), 0) + parseInt($aside.css(&#039;padding-top&#039;), 0);
+            var subNav = ul.clone().appendTo($aside);
+
+            toggleTouchItem($listItem);
+
+            var itemTop = ($listItem.position().top + mar) - $sidebar.scrollTop();
+            var vwHeight = $win.height();
+
+            subNav
+                .addClass(&#039;nav-floating&#039;)
+                .css({
+                    position: $scope.app.layout.isFixed ? &#039;fixed&#039; : &#039;absolute&#039;,
+                    top: itemTop,
+                    bottom: (subNav.outerHeight(true) + itemTop &gt; vwHeight) ? 0 : &#039;auto&#039;
+                });
+
+            subNav.on(&#039;mouseleave&#039;, function () {
+                toggleTouchItem($listItem);
+                subNav.remove();
+            });
+
+            return subNav;
+        }
+
+        function removeFloatingNav() {
+            $(&#039;.dropdown-backdrop&#039;).remove();
+            $(&#039;.sidebar-subnav.nav-floating&#039;).remove();
+            $(&#039;.sidebar li.open&#039;).removeClass(&#039;open&#039;);
+        }
+
+    }
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

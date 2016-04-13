@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - modules/charts/controllers/flot.controller.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>modules/charts/controllers/flot.controller.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">63.61</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">382</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">41.97</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.68</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**=========================================================
+ * Module: app.charts
+ * Setup options and data for flot chart directive
+ =========================================================*/
+
+(function () {
+    &#039;use strict&#039;;
+
+    angular
+        .module(&#039;app.charts&#039;)
+        .controller(&#039;Flot&#039;, Flot);
+
+    Flot.$inject = [&#039;$scope&#039;, &#039;ChartDataservice&#039;, &#039;$timeout&#039;, &#039;logger&#039;, &#039;$q&#039;];
+
+    function Flot($scope, dataservice, $timeout, logger, $q) {
+
+        // Generate random data for realtime demo
+        var data = [], totalPoints = 300;
+
+        $scope.title = &#039;FlotChart&#039;;
+
+        $scope.barData = [];
+        $scope.barStackeData = [];
+        $scope.splineData = [];
+        $scope.getAreaChart = [];
+        $scope.lineData =  [];
+        $scope.pieData = [];
+        $scope.donutData = [];
+
+        activate();
+
+        function activate() {
+            var promises = [
+                getBarChart(),
+                getBarstackedChart(),
+                getSplineChart(),
+                getAreaChart(),
+                getLineChart(),
+                getPieChart(),
+                getDonutChart(),
+                update()
+            ];
+            return $q.all(promises).then(function() {
+                logger.info(&#039;Activated FlotChart View&#039;);
+            });
+        }
+
+        function getBarChart() {
+            return dataservice.getBarChart().then(function(data) {
+                $scope.barData = data;
+                return $scope.barData;
+            });
+        }
+
+        function getBarstackedChart() {
+            return dataservice.getBarstackedChart().then(function(data) {
+                $scope.barStackeData = data;
+                return $scope.barStackeData;
+            });
+        }
+
+        function getSplineChart() {
+            return dataservice.getSplineChart().then(function(data) {
+                $scope.splineData = data;
+                return $scope.splineData;
+            });
+        }
+
+        function getAreaChart() {
+            return dataservice.getAreaChart().then(function(data) {
+                $scope.areaData = data;
+                return $scope.areaData;
+            });
+        }
+
+        function getLineChart() {
+            return dataservice.getLineChart().then(function(data) {
+                $scope.lineData = data;
+                return $scope.lineData;
+            });
+        }
+
+        function getPieChart() {
+            return dataservice.getPieChart().then(function(data) {
+                $scope.pieData = data;
+                return $scope.pieData;
+            });
+        }
+
+        function getDonutChart() {
+            return dataservice.getDonutChart().then(function(data) {
+                $scope.donutData = data;
+                return $scope.donutData;
+            });
+        }
+
+        // BAR
+        // -----------------------------------
+        $scope.barOptions = {
+            series: {
+                bars: {
+                    align: &#039;center&#039;,
+                    lineWidth: 0,
+                    show: true,
+                    barWidth: 0.6,
+                    fill: 0.9
+                }
+            },
+            grid: {
+                borderColor: &#039;#eee&#039;,
+                borderWidth: 1,
+                hoverable: true,
+                backgroundColor: &#039;#fcfcfc&#039;
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: function (label, x, y) {
+                    return x + &#039; : &#039; + y;
+                }
+            },
+            xaxis: {
+                tickColor: &#039;#fcfcfc&#039;,
+                mode: &#039;categories&#039;
+            },
+            yaxis: {
+                position: ($scope.app.layout.isRTL ? &#039;right&#039; : &#039;left&#039;),
+                tickColor: &#039;#eee&#039;
+            },
+            shadowSize: 0
+        };
+
+        // BAR STACKED
+        // -----------------------------------
+        $scope.barStackedOptions = {
+            series: {
+                stack: true,
+                bars: {
+                    align: &#039;center&#039;,
+                    lineWidth: 0,
+                    show: true,
+                    barWidth: 0.6,
+                    fill: 0.9
+                }
+            },
+            grid: {
+                borderColor: &#039;#eee&#039;,
+                borderWidth: 1,
+                hoverable: true,
+                backgroundColor: &#039;#fcfcfc&#039;
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: function (label, x, y) {
+                    return x + &#039; : &#039; + y;
+                }
+            },
+            xaxis: {
+                tickColor: &#039;#fcfcfc&#039;,
+                mode: &#039;categories&#039;
+            },
+            yaxis: {
+                min: 0,
+                max: 200, // optional: use it for a clear represetation
+                position: ($scope.app.layout.isRTL ? &#039;right&#039; : &#039;left&#039;),
+                tickColor: &#039;#eee&#039;
+            },
+            shadowSize: 0
+        };
+
+        // SPLINE
+        // -----------------------------------
+        $scope.splineOptions = {
+            series: {
+                lines: {
+                    show: false
+                },
+                points: {
+                    show: true,
+                    radius: 4
+                },
+                splines: {
+                    show: true,
+                    tension: 0.4,
+                    lineWidth: 1,
+                    fill: 0.5
+                }
+            },
+            grid: {
+                borderColor: &#039;#eee&#039;,
+                borderWidth: 1,
+                hoverable: true,
+                backgroundColor: &#039;#fcfcfc&#039;
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: function (label, x, y) {
+                    return x + &#039; : &#039; + y;
+                }
+            },
+            xaxis: {
+                tickColor: &#039;#fcfcfc&#039;,
+                mode: &#039;categories&#039;
+            },
+            yaxis: {
+                min: 0,
+                max: 150, // optional: use it for a clear represetation
+                tickColor: &#039;#eee&#039;,
+                position: ($scope.app.layout.isRTL ? &#039;right&#039; : &#039;left&#039;),
+                tickFormatter: function (v) {
+                    return v/* + &#039; visitors&#039;*/;
+                }
+            },
+            shadowSize: 0
+        };
+
+        // AREA
+        // -----------------------------------
+        $scope.areaOptions = {
+            series: {
+                lines: {
+                    show: true,
+                    fill: 0.8
+                },
+                points: {
+                    show: true,
+                    radius: 4
+                }
+            },
+            grid: {
+                borderColor: &#039;#eee&#039;,
+                borderWidth: 1,
+                hoverable: true,
+                backgroundColor: &#039;#fcfcfc&#039;
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: function (label, x, y) {
+                    return x + &#039; : &#039; + y;
+                }
+            },
+            xaxis: {
+                tickColor: &#039;#fcfcfc&#039;,
+                mode: &#039;categories&#039;
+            },
+            yaxis: {
+                min: 0,
+                tickColor: &#039;#eee&#039;,
+                position: ($scope.app.layout.isRTL ? &#039;right&#039; : &#039;left&#039;),
+                tickFormatter: function (v) {
+                    return v + &#039; visitors&#039;;
+                }
+            },
+            shadowSize: 0
+        };
+
+        // LINE
+        // -----------------------------------
+        $scope.lineOptions = {
+            series: {
+                lines: {
+                    show: true,
+                    fill: 0.01
+                },
+                points: {
+                    show: true,
+                    radius: 4
+                }
+            },
+            grid: {
+                borderColor: &#039;#eee&#039;,
+                borderWidth: 1,
+                hoverable: true,
+                backgroundColor: &#039;#fcfcfc&#039;
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: function (label, x, y) {
+                    return x + &#039; : &#039; + y;
+                }
+            },
+            xaxis: {
+                tickColor: &#039;#eee&#039;,
+                mode: &#039;categories&#039;
+            },
+            yaxis: {
+                position: ($scope.app.layout.isRTL ? &#039;right&#039; : &#039;left&#039;),
+                tickColor: &#039;#eee&#039;
+            },
+            shadowSize: 0
+        };
+
+        // PIE
+        // -----------------------------------
+        $scope.pieOptions = {
+            series: {
+                pie: {
+                    show: true,
+                    innerRadius: 0,
+                    label: {
+                        show: true,
+                        radius: 0.8,
+                        formatter: function (label, series) {
+                            return &#039;&lt;div class=&quot;flot-pie-label&quot;&gt;&#039; +
+                                    //label + &#039; : &#039; +
+                                Math.round(series.percent) +
+                                &#039;%&lt;/div&gt;&#039;;
+                        },
+                        background: {
+                            opacity: 0.8,
+                            color: &#039;#222&#039;
+                        }
+                    }
+                }
+            }
+        };
+
+        // DONUT
+        // -----------------------------------
+        $scope.donutOptions = {
+            series: {
+                pie: {
+                    show: true,
+                    innerRadius: 0.5 // This makes the donut shape
+                }
+            }
+        };
+
+        // REALTIME
+        // -----------------------------------
+        $scope.realTimeOptions = {
+            series: {
+                lines: {show: true, fill: true, fillColor: {colors: [&#039;#a0e0f3&#039;, &#039;#23b7e5&#039;]}},
+                shadowSize: 0 // Drawing is faster without shadows
+            },
+            grid: {
+                show: false,
+                borderWidth: 0,
+                minBorderMargin: 20,
+                labelMargin: 10
+            },
+            xaxis: {
+                tickFormatter: function () {
+                    return &quot;&quot;;
+                }
+            },
+            yaxis: {
+                min: 0,
+                max: 110
+            },
+            legend: {
+                show: true
+            },
+            colors: [&quot;#23b7e5&quot;]
+        };
+
+
+
+        function getRandomData() {
+            if (data.length &gt; 0)
+                data = data.slice(1);
+            // Do a random walk
+            while (data.length &lt; totalPoints) {
+                var prev = data.length &gt; 0 ? data[data.length - 1] : 50,
+                    y = prev + Math.random() * 10 - 5;
+                if (y &lt; 0) {
+                    y = 0;
+                } else if (y &gt; 100) {
+                    y = 100;
+                }
+                data.push(y);
+            }
+            // Zip the generated y values with the x values
+            var res = [];
+            for (var i = 0; i &lt; data.length; ++i) {
+                res.push([i, data[i]]);
+            }
+            return [res];
+        }
+
+        function update() {
+            $scope.realTimeData = getRandomData();
+            $timeout(update, 30);
+        }
+
+        // end random data generation
+    }
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

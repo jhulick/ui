@@ -1,0 +1,71 @@
+digraph dependencies {
+  node[shape="component",style="filled",colorscheme=paired12]
+
+
+    node[shape="component"]
+    "app.maps"[label="app.maps", color=1]
+
+    
+
+
+    node[shape="ellipse"]
+    
+
+
+    
+      "ModalGmapController"[label="ModalGmapController", color=4]
+      "app.maps" -> "ModalGmapController"
+    
+      "VectorMapController"[label="VectorMapController", color=4]
+      "app.maps" -> "VectorMapController"
+    
+
+    
+
+    
+
+    node[shape="cds"]
+    
+
+    
+
+
+
+
+
+
+
+
+
+    node[shape="ellipse",style="filled", color=9]
+    
+
+    
+
+
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "ModalGmapController"
+      
+        "$modal"[label="$modal"]
+        "$modal" -> "ModalGmapController"
+      
+        "gmap"[label="gmap"]
+        "gmap" -> "ModalGmapController"
+      
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "VectorMapController"
+      
+    
+
+    
+
+    
+
+    
+
+
+}

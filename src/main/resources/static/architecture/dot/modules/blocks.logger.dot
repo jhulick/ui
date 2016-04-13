@@ -1,0 +1,57 @@
+digraph dependencies {
+  node[shape="component",style="filled",colorscheme=paired12]
+
+
+    node[shape="component"]
+    "blocks.logger"[label="blocks.logger", color=1]
+
+    
+
+
+    node[shape="ellipse"]
+    
+
+
+    
+
+    
+
+    
+      "logger"[label="logger", color=6]
+      "blocks.logger" -> "logger"
+    
+
+    node[shape="cds"]
+    
+
+    
+
+
+
+
+
+
+
+
+
+    node[shape="ellipse",style="filled", color=9]
+    
+
+    
+
+
+    
+
+    
+
+    
+      
+        "toastr"[label="toastr"]
+        "toastr" -> "logger"
+      
+    
+
+    
+
+
+}

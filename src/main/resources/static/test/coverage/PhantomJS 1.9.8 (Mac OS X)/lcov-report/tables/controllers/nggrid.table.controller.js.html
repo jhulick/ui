@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tables/controllers/nggrid.table.controller.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header medium">
+    <h1>Code coverage report for <span class="entity">tables/controllers/nggrid.table.controller.js</span></h1>
+    <h2>
+        Statements: <span class="metric">63.41% <small>(26 / 41)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">30% <small>(3 / 10)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">58.33% <small>(7 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">63.41% <small>(26 / 41)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">tables/controllers/</a> &#187; nggrid.table.controller.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**=========================================================
+ * Module: ng-grid.js
+ * ngGrid demo
+ =========================================================*/
+&nbsp;
+(function () {
+    'use strict';
+&nbsp;
+    angular
+        .module('app.tables')
+        .controller('NGGridController', NGGridController);
+&nbsp;
+    NGGridController.$inject = ['$scope', '$http', '$timeout', 'logger'];
+&nbsp;
+    function NGGridController($scope, $http, $timeout, logger) {
+        // required for inner references
+        var vm = this;
+&nbsp;
+        vm.title = "NGTable";
+        vm.setPagingData = setPagingData;
+        vm.getPagedDataAsync = getPagedDataAsync;
+&nbsp;
+        activate();
+&nbsp;
+        function activate() {
+            logger.info('Activated NGGridController View');
+            init();
+        }
+&nbsp;
+&nbsp;
+        ////////////////////////
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function setPagingData(data, page, pageSize) {</span>
+            // calc for pager
+<span class="cstat-no" title="statement not covered" >            var pagedData = data.slice((page - 1) * pageSize, page * pageSize);</span>
+            // Store data from server
+<span class="cstat-no" title="statement not covered" >            vm.myData = pagedData;</span>
+            // Update server side data length
+<span class="cstat-no" title="statement not covered" >            vm.totalServerItems = data.length;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            if (!vm.$$phase) {</span>
+<span class="cstat-no" title="statement not covered" >                vm.$apply();</span>
+            }
+&nbsp;
+        };
+&nbsp;
+        // TODO: move to dataservice
+        function getPagedDataAsync(pageSize, page, searchText) {
+            var ngGridResourcePath = 'server/data/ng-grid-data.json';
+&nbsp;
+            $timeout(<span class="fstat-no" title="function not covered" >function () {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (searchText) {</span>
+<span class="cstat-no" title="statement not covered" >                    var ft = searchText.toLowerCase();</span>
+<span class="cstat-no" title="statement not covered" >                    $http.get(ngGridResourcePath).success(<span class="fstat-no" title="function not covered" >function (largeLoad) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        var data = largeLoad.filter(<span class="fstat-no" title="function not covered" >function (item) {</span></span>
+<span class="cstat-no" title="statement not covered" >                            return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;</span>
+                        });
+<span class="cstat-no" title="statement not covered" >                        vm.setPagingData(data, page, pageSize);</span>
+                    });
+                } else {
+<span class="cstat-no" title="statement not covered" >                    $http.get(ngGridResourcePath).success(<span class="fstat-no" title="function not covered" >function (largeLoad) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        vm.setPagingData(largeLoad, page, pageSize);</span>
+                    });
+                }
+            }, 100);
+        };
+&nbsp;
+        /**
+         * Construct a few ng-tables.
+         * @returns {*}
+         */
+        function init() {
+&nbsp;
+            vm.filterOptions = {
+                filterText: "",
+                useExternalFilter: true
+            };
+            vm.totalServerItems = 0;
+            vm.pagingOptions = {
+                pageSizes: [250, 500, 1000],  // page size options
+                pageSize: 250,              // default page size
+                currentPage: 1                 // initial page
+            };
+&nbsp;
+            vm.gridOptions = {
+                data: 'myData',
+                enablePaging: true,
+                showFooter: true,
+                rowHeight: 36,
+                headerRowHeight: 38,
+                totalServerItems: 'totalServerItems',
+                pagingOptions: vm.pagingOptions,
+                filterOptions: vm.filterOptions
+            };
+            $scope.$watch('pagingOptions', function (newVal, oldVal) {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (newVal !== oldVal &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >newVal.currentPage !== oldVal.currentPage)</span> {
+<span class="cstat-no" title="statement not covered" >                    vm.getPagedDataAsync(vm.pagingOptions.pageSize, vm.pagingOptions.currentPage, vm.filterOptions.filterText);</span>
+                }
+            }, true);
+            $scope.$watch('filterOptions', function (newVal, oldVal) {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (newVal !== oldVal) {
+<span class="cstat-no" title="statement not covered" >                    vm.getPagedDataAsync(vm.pagingOptions.pageSize, vm.pagingOptions.currentPage, vm.filterOptions.filterText);</span>
+                }
+            }, true);
+&nbsp;
+            vm.getPagedDataAsync(vm.pagingOptions.pageSize, vm.pagingOptions.currentPage);
+        }
+&nbsp;
+    }
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Apr 30 2015 10:16:22 GMT-0400 (EDT)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

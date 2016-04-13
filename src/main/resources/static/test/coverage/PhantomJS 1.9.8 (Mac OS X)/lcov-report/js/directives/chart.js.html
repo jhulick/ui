@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/directives/chart.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">js/directives/chart.js</span></h1>
+    <h2>
+        Statements: <span class="metric">17.65% <small>(12 / 68)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 35)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">7.14% <small>(1 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">17.65% <small>(12 / 68)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">js/directives/</a> &#187; chart.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**=========================================================
+ * Module: chart.js
+ * Wrapper directive for chartJS.
+ * Based on https://gist.github.com/AndreasHeiberg/9837868
+ =========================================================*/
+&nbsp;
+(function () {
+    'use strict';
+&nbsp;
+    var app = angular.module('max-ui');
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function ChartJS(type) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var directive = {</span>
+            restrict: "A",
+            scope: {
+                data: "=",
+                options: "=",
+                id: "@",
+                width: "=",
+                height: "=",
+                resize: "=",
+                chart: "@",
+                segments: "@",
+                responsive: "=",
+                tooltip: "=",
+                legend: "="
+            },
+            link: link
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return directive;</span>
+&nbsp;
+        ////////////////////////////////////////////
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function link($scope, $elem) {</span>
+<span class="cstat-no" title="statement not covered" >            var ctx = $elem[0].getContext("2d");</span>
+<span class="cstat-no" title="statement not covered" >            var autosize = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            $scope.size = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                if ($scope.width &lt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >                    $elem.width($elem.parent().width());</span>
+<span class="cstat-no" title="statement not covered" >                    ctx.canvas.width = $elem.width();</span>
+                } else {
+<span class="cstat-no" title="statement not covered" >                    ctx.canvas.width = $scope.width || ctx.canvas.width;</span>
+<span class="cstat-no" title="statement not covered" >                    autosize = true;</span>
+                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if ($scope.height &lt;= 0) {</span>
+<span class="cstat-no" title="statement not covered" >                    $elem.height($elem.parent().height());</span>
+<span class="cstat-no" title="statement not covered" >                    ctx.canvas.height = ctx.canvas.width / 2;</span>
+                } else {
+<span class="cstat-no" title="statement not covered" >                    ctx.canvas.height = $scope.height || ctx.canvas.height;</span>
+<span class="cstat-no" title="statement not covered" >                    autosize = true;</span>
+                }
+            };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            $scope.$watch("data", <span class="fstat-no" title="function not covered" >function (newVal, oldVal) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (chartCreated)</span>
+<span class="cstat-no" title="statement not covered" >                    chartCreated.destroy();</span>
+&nbsp;
+                // if data not defined, exit
+<span class="cstat-no" title="statement not covered" >                if (!newVal) {</span>
+<span class="cstat-no" title="statement not covered" >                    return;</span>
+                }
+<span class="cstat-no" title="statement not covered" >                if ($scope.chart) {</span>
+<span class="cstat-no" title="statement not covered" >                    type = $scope.chart;</span>
+                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (autosize) {</span>
+<span class="cstat-no" title="statement not covered" >                    $scope.size();</span>
+<span class="cstat-no" title="statement not covered" >                    chart = new Chart(ctx);</span>
+                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if ($scope.responsive || $scope.resize)</span>
+<span class="cstat-no" title="statement not covered" >                    $scope.options.responsive = true;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if ($scope.responsive !== undefined)</span>
+<span class="cstat-no" title="statement not covered" >                    $scope.options.responsive = $scope.responsive;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                chartCreated = chart[type]($scope.data, $scope.options);</span>
+<span class="cstat-no" title="statement not covered" >                chartCreated.update();</span>
+<span class="cstat-no" title="statement not covered" >                if ($scope.legend)</span>
+<span class="cstat-no" title="statement not covered" >                    angular.element($elem[0]).parent().after(chartCreated.generateLegend());</span>
+            }, true);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            $scope.$watch("tooltip", <span class="fstat-no" title="function not covered" >function (newVal, oldVal) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (chartCreated)</span>
+<span class="cstat-no" title="statement not covered" >                    chartCreated.draw();</span>
+<span class="cstat-no" title="statement not covered" >                if (newVal === undefined || !chartCreated.segments)</span>
+<span class="cstat-no" title="statement not covered" >                    return;</span>
+<span class="cstat-no" title="statement not covered" >                if (!isFinite(newVal) || newVal &gt;= chartCreated.segments.length || newVal &lt; 0)</span>
+<span class="cstat-no" title="statement not covered" >                    return;</span>
+<span class="cstat-no" title="statement not covered" >                var activeSegment = chartCreated.segments[newVal];</span>
+<span class="cstat-no" title="statement not covered" >                activeSegment.save();</span>
+<span class="cstat-no" title="statement not covered" >                activeSegment.fillColor = activeSegment.highlightColor;</span>
+<span class="cstat-no" title="statement not covered" >                chartCreated.showTooltip([activeSegment]);</span>
+<span class="cstat-no" title="statement not covered" >                activeSegment.restore();</span>
+            }, true);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            $scope.size();</span>
+<span class="cstat-no" title="statement not covered" >            var chart = new Chart(ctx);</span>
+<span class="cstat-no" title="statement not covered" >            var chartCreated;</span>
+        }
+&nbsp;
+    }
+&nbsp;
+    /* Aliases for various chart types */
+    app.directive("chartjs", <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        return ChartJS();</span>
+    });
+    app.directive("linechart", <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        return ChartJS("Line");</span>
+    });
+    app.directive("barchart", <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        return ChartJS("Bar");</span>
+    });
+    app.directive("radarchart", <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        return ChartJS("Radar");</span>
+    });
+    app.directive("polarchart", <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        return ChartJS("PolarArea");</span>
+    });
+    app.directive("piechart", <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        return ChartJS("Pie");</span>
+    });
+    app.directive("doughnutchart", <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        return ChartJS("Doughnut");</span>
+    });
+    app.directive("donutchart", <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        return ChartJS("Doughnut");</span>
+    });
+&nbsp;
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Apr 22 2015 12:38:47 GMT-0400 (EDT)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

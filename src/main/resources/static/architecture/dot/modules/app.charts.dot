@@ -1,0 +1,71 @@
+digraph dependencies {
+  node[shape="component",style="filled",colorscheme=paired12]
+
+
+    node[shape="component"]
+    "app.charts"[label="app.charts", color=1]
+
+    
+
+
+    node[shape="ellipse"]
+    
+
+
+    
+      "ChartJSController"[label="ChartJSController", color=4]
+      "app.charts" -> "ChartJSController"
+    
+      "FlotChartController"[label="FlotChartController", color=4]
+      "app.charts" -> "FlotChartController"
+    
+
+    
+
+    
+
+    node[shape="cds"]
+    
+
+    
+
+
+
+
+
+
+
+
+
+    node[shape="ellipse",style="filled", color=9]
+    
+
+    
+
+
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "ChartJSController"
+      
+        "colors"[label="colors"]
+        "colors" -> "ChartJSController"
+      
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "FlotChartController"
+      
+        "ChartData"[label="ChartData"]
+        "ChartData" -> "FlotChartController"
+      
+    
+
+    
+
+    
+
+    
+
+
+}

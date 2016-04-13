@@ -1,0 +1,43 @@
+{
+    "text": "Angular Material",
+    "heading": "true",
+    "translate": "sidebar.heading.MATERIAL"
+  },
+  {
+    "text": "Material Elements",
+    "sref": "#",
+    "icon": "icon-chemistry",
+    "submenu": [
+      {
+        "text": "Autocomplete",
+        "sref": "app.autocomplete",
+        "translate": "sidebar.nav.material.AUTOCOMPLETE"
+      },
+      {
+        "text": "Buttons",
+        "sref": "app.material_buttons",
+        "translate": "sidebar.nav.material.BUTTON"
+      },
+      {
+        "text": "Checkbox",
+        "sref": "app.material_checkbox",
+        "translate": "sidebar.nav.material.CHECKBOX"
+      },
+      {
+        "text": "Content",
+        "sref": "app.material_content",
+        "translate": "sidebar.nav.material.CONTENT"
+      },
+      {
+        "text": "Dialog",
+        "sref": "app.material_dialog",
+        "translate": "sidebar.nav.material.DIALOG"
+      },
+      {
+        "text": "Divider",
+        "sref": "app.material_divider",
+        "translate": "sidebar.nav.material.DIVIDER"
+      }
+    ],
+    "translate": "sidebar.nav.element.ELEMENTS"
+  },

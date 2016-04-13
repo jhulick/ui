@@ -1,0 +1,1271 @@
+digraph dependencies {
+  node[shape="component",style="filled",colorscheme=paired12]
+
+    node[shape="component"]
+    
+      "max-ui"[label="max-ui", color=1]
+    
+      "app.core"[label="app.core", color=1]
+    
+      "blocks.logger"[label="blocks.logger", color=1]
+    
+      "blocks.exception"[label="blocks.exception", color=1]
+    
+      "app.layout"[label="app.layout", color=1]
+    
+      "app.dashboard"[label="app.dashboard", color=1]
+    
+      "app.charts"[label="app.charts", color=1]
+    
+      "app.maps"[label="app.maps", color=1]
+    
+      "app.tables"[label="app.tables", color=1]
+    
+      "app.sidebar"[label="app.sidebar", color=1]
+    
+      "app.documentation"[label="app.documentation", color=1]
+    
+
+    
+      
+    
+      
+        "app.core" -> "ngAnimate"
+      
+        "app.core" -> "ngStorage"
+      
+        "app.core" -> "ngCookies"
+      
+        "app.core" -> "ngSanitize"
+      
+        "app.core" -> "ngResource"
+      
+        "app.core" -> "ngAria"
+      
+        "app.core" -> "blocks.exception"
+      
+        "app.core" -> "blocks.logger"
+      
+        "app.core" -> "pascalprecht.translate"
+      
+        "app.core" -> "ui.bootstrap"
+      
+        "app.core" -> "ui.router"
+      
+        "app.core" -> "oc.lazyLoad"
+      
+        "app.core" -> "cfp.loadingBar"
+      
+        "app.core" -> "tmh.dynamicLocale"
+      
+        "app.core" -> "ui.utils"
+      
+        "app.core" -> "ngIdle"
+      
+    
+      
+    
+      
+        "blocks.exception" -> "blocks.logger"
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    node[shape="ellipse"]
+
+
+    
+      
+        "RouteHelpers"[label="RouteHelpers", color=2]
+      
+
+      
+
+      
+        "browser"[label="browser", color=5]
+      
+        "gmap"[label="gmap", color=5]
+      
+        "navSearch"[label="navSearch", color=5]
+      
+        "toggleStateService"[label="toggleStateService", color=5]
+      
+        "Utils"[label="Utils", color=5]
+      
+        "vectorMap"[label="vectorMap", color=5]
+      
+        "ChartData"[label="ChartData", color=5]
+      
+
+      
+        "appStart"[label="appStart", color=6]
+      
+        "colors"[label="colors", color=6]
+      
+
+
+      node[shape="cds"]
+
+      
+
+      
+        "href"[label="href", color=3]
+      
+        "animateEnabled"[label="animateEnabled", color=3]
+      
+        "chartjs"[label="chartjs", color=3]
+      
+        "linechart"[label="linechart", color=3]
+      
+        "barchart"[label="barchart", color=3]
+      
+        "radarchart"[label="radarchart", color=3]
+      
+        "polarchart"[label="polarchart", color=3]
+      
+        "piechart"[label="piechart", color=3]
+      
+        "doughnutchart"[label="doughnutchart", color=3]
+      
+        "donutchart"[label="donutchart", color=3]
+      
+        "classyloader"[label="classyloader", color=3]
+      
+        "resetKey"[label="resetKey", color=3]
+      
+        "filestyle"[label="filestyle", color=3]
+      
+        "flatdoc"[label="flatdoc", color=3]
+      
+        "flot"[label="flot", color=3]
+      
+        "formWizard"[label="formWizard", color=3]
+      
+        "toggleFullscreen"[label="toggleFullscreen", color=3]
+      
+        "gmap"[label="gmap", color=3]
+      
+        "loadCss"[label="loadCss", color=3]
+      
+        "masked"[label="masked", color=3]
+      
+        "nestable"[label="nestable", color=3]
+      
+        "notify"[label="notify", color=3]
+      
+        "now"[label="now", color=3]
+      
+        "paneltool"[label="paneltool", color=3]
+      
+        "panelDismiss"[label="panelDismiss", color=3]
+      
+        "panelCollapse"[label="panelCollapse", color=3]
+      
+        "panelRefresh"[label="panelRefresh", color=3]
+      
+        "animate"[label="animate", color=3]
+      
+        "scrollable"[label="scrollable", color=3]
+      
+        "sidebar"[label="sidebar", color=3]
+      
+        "skycon"[label="skycon", color=3]
+      
+        "sparkline"[label="sparkline", color=3]
+      
+        "checkAll"[label="checkAll", color=3]
+      
+        "tagsinput"[label="tagsinput", color=3]
+      
+        "toggleState"[label="toggleState", color=3]
+      
+        "uiSlider"[label="uiSlider", color=3]
+      
+        "validateForm"[label="validateForm", color=3]
+      
+        "vectorMap"[label="vectorMap", color=3]
+      
+        "searchOpen"[label="searchOpen", color=3]
+      
+        "searchDismiss"[label="searchDismiss", color=3]
+      
+
+
+
+
+
+      node[shape="ellipse"]
+      
+        "max-ui" -> "RouteHelpers"
+      
+
+      
+        "max-ui" -> "href"
+      
+        "max-ui" -> "animateEnabled"
+      
+        "max-ui" -> "chartjs"
+      
+        "max-ui" -> "linechart"
+      
+        "max-ui" -> "barchart"
+      
+        "max-ui" -> "radarchart"
+      
+        "max-ui" -> "polarchart"
+      
+        "max-ui" -> "piechart"
+      
+        "max-ui" -> "doughnutchart"
+      
+        "max-ui" -> "donutchart"
+      
+        "max-ui" -> "classyloader"
+      
+        "max-ui" -> "resetKey"
+      
+        "max-ui" -> "filestyle"
+      
+        "max-ui" -> "flatdoc"
+      
+        "max-ui" -> "flot"
+      
+        "max-ui" -> "formWizard"
+      
+        "max-ui" -> "toggleFullscreen"
+      
+        "max-ui" -> "gmap"
+      
+        "max-ui" -> "loadCss"
+      
+        "max-ui" -> "masked"
+      
+        "max-ui" -> "nestable"
+      
+        "max-ui" -> "notify"
+      
+        "max-ui" -> "now"
+      
+        "max-ui" -> "paneltool"
+      
+        "max-ui" -> "panelDismiss"
+      
+        "max-ui" -> "panelCollapse"
+      
+        "max-ui" -> "panelRefresh"
+      
+        "max-ui" -> "animate"
+      
+        "max-ui" -> "scrollable"
+      
+        "max-ui" -> "sidebar"
+      
+        "max-ui" -> "skycon"
+      
+        "max-ui" -> "sparkline"
+      
+        "max-ui" -> "checkAll"
+      
+        "max-ui" -> "tagsinput"
+      
+        "max-ui" -> "toggleState"
+      
+        "max-ui" -> "uiSlider"
+      
+        "max-ui" -> "validateForm"
+      
+        "max-ui" -> "vectorMap"
+      
+        "max-ui" -> "searchOpen"
+      
+        "max-ui" -> "searchDismiss"
+      
+
+      
+
+      
+        "max-ui" -> "browser"
+      
+        "max-ui" -> "gmap"
+      
+        "max-ui" -> "navSearch"
+      
+        "max-ui" -> "toggleStateService"
+      
+        "max-ui" -> "Utils"
+      
+        "max-ui" -> "vectorMap"
+      
+        "max-ui" -> "ChartData"
+      
+
+      
+        "max-ui" -> "appStart"
+      
+        "max-ui" -> "colors"
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      node[shape="ellipse",style="filled", color=8]
+      
+        
+          "appRequires"[label="appRequires"]
+          "appRequires" -> "RouteHelpers"
+        
+      
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          "Utils"[label="Utils"]
+          "Utils" -> "classyloader"
+        
+      
+        
+          "$state"[label="$state"]
+          "$state" -> "resetKey"
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          "gmap"[label="gmap"]
+          "gmap" -> "gmap"
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          "dateFilter"[label="dateFilter"]
+          "dateFilter" -> "now"
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          "Utils"[label="Utils"]
+          "Utils" -> "animate"
+        
+      
+        
+      
+        
+          "Utils"[label="Utils"]
+          "Utils" -> "sidebar"
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          "toggle"[label="toggle"]
+          "toggle" -> "toggleState"
+        
+      
+        
+      
+        
+      
+        
+          "vectorMap"[label="vectorMap"]
+          "vectorMap" -> "vectorMap"
+        
+      
+        
+          "navSearch"[label="navSearch"]
+          "navSearch" -> "searchOpen"
+        
+      
+        
+          "navSearch"[label="navSearch"]
+          "navSearch" -> "searchDismiss"
+        
+      
+
+      
+
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          "APP_MEDIAQUERY"[label="APP_MEDIAQUERY"]
+          "APP_MEDIAQUERY" -> "Utils"
+        
+      
+        
+      
+        
+          "$resource"[label="$resource"]
+          "$resource" -> "ChartData"
+        
+      
+
+      
+        
+          "$state"[label="$state"]
+          "$state" -> "appStart"
+        
+          "$stateParams"[label="$stateParams"]
+          "$stateParams" -> "appStart"
+        
+      
+        
+          "colors"[label="colors"]
+          "colors" -> "colors"
+        
+      
+
+      
+
+    
+      
+        "routerHelper"[label="routerHelper", color=2]
+      
+
+      
+
+      
+
+      
+
+
+      node[shape="cds"]
+
+      
+
+      
+
+
+
+
+
+      node[shape="ellipse"]
+      
+        "app.core" -> "routerHelper"
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      node[shape="ellipse",style="filled", color=8]
+      
+        
+          "$locationProvider"[label="$locationProvider"]
+          "$locationProvider" -> "routerHelper"
+        
+          "$stateProvider"[label="$stateProvider"]
+          "$stateProvider" -> "routerHelper"
+        
+          "$urlRouterProvider"[label="$urlRouterProvider"]
+          "$urlRouterProvider" -> "routerHelper"
+        
+          "appRequires"[label="appRequires"]
+          "appRequires" -> "routerHelper"
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+    
+      
+
+      
+
+      
+
+      
+        "logger"[label="logger", color=6]
+      
+
+
+      node[shape="cds"]
+
+      
+
+      
+
+
+
+
+
+      node[shape="ellipse"]
+      
+
+      
+
+      
+
+      
+
+      
+        "blocks.logger" -> "logger"
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      node[shape="ellipse",style="filled", color=8]
+      
+
+      
+
+      
+
+      
+
+      
+        
+          "toastr"[label="toastr"]
+          "toastr" -> "logger"
+        
+      
+
+      
+
+    
+      
+        "exceptionHandler"[label="exceptionHandler", color=2]
+      
+
+      
+
+      
+
+      
+        "exception"[label="exception", color=6]
+      
+
+
+      node[shape="cds"]
+
+      
+
+      
+
+
+
+
+
+      node[shape="ellipse"]
+      
+        "blocks.exception" -> "exceptionHandler"
+      
+
+      
+
+      
+
+      
+
+      
+        "blocks.exception" -> "exception"
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      node[shape="ellipse",style="filled", color=8]
+      
+        
+      
+
+      
+
+      
+
+      
+
+      
+        
+          "logger"[label="logger"]
+          "logger" -> "exception"
+        
+      
+
+      
+
+    
+      
+
+      
+        "AppController"[label="AppController", color=4]
+      
+        "SidebarController"[label="SidebarController", color=4]
+      
+
+      
+
+      
+
+
+      node[shape="cds"]
+
+      
+
+      
+
+
+
+
+
+      node[shape="ellipse"]
+      
+
+      
+
+      
+        "app.layout" -> "AppController"
+      
+        "app.layout" -> "SidebarController"
+      
+
+      
+
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      node[shape="ellipse",style="filled", color=8]
+      
+
+      
+
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "AppController"
+        
+          "$state"[label="$state"]
+          "$state" -> "AppController"
+        
+          "$translate"[label="$translate"]
+          "$translate" -> "AppController"
+        
+          "$localStorage"[label="$localStorage"]
+          "$localStorage" -> "AppController"
+        
+          "toggle"[label="toggle"]
+          "toggle" -> "AppController"
+        
+          "colors"[label="colors"]
+          "colors" -> "AppController"
+        
+          "browser"[label="browser"]
+          "browser" -> "AppController"
+        
+          "cfpLoadingBar"[label="cfpLoadingBar"]
+          "cfpLoadingBar" -> "AppController"
+        
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "SidebarController"
+        
+          "$state"[label="$state"]
+          "$state" -> "SidebarController"
+        
+          "Utils"[label="Utils"]
+          "Utils" -> "SidebarController"
+        
+      
+
+      
+
+      
+
+      
+
+    
+      
+
+      
+
+      
+
+      
+
+
+      node[shape="cds"]
+
+      
+
+      
+
+
+
+
+
+      node[shape="ellipse"]
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      node[shape="ellipse",style="filled", color=8]
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+    
+      
+
+      
+        "ChartJSController"[label="ChartJSController", color=4]
+      
+        "FlotChartController"[label="FlotChartController", color=4]
+      
+
+      
+
+      
+
+
+      node[shape="cds"]
+
+      
+
+      
+
+
+
+
+
+      node[shape="ellipse"]
+      
+
+      
+
+      
+        "app.charts" -> "ChartJSController"
+      
+        "app.charts" -> "FlotChartController"
+      
+
+      
+
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      node[shape="ellipse",style="filled", color=8]
+      
+
+      
+
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "ChartJSController"
+        
+          "colors"[label="colors"]
+          "colors" -> "ChartJSController"
+        
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "FlotChartController"
+        
+          "ChartData"[label="ChartData"]
+          "ChartData" -> "FlotChartController"
+        
+      
+
+      
+
+      
+
+      
+
+    
+      
+
+      
+        "ModalGmapController"[label="ModalGmapController", color=4]
+      
+        "VectorMapController"[label="VectorMapController", color=4]
+      
+
+      
+
+      
+
+
+      node[shape="cds"]
+
+      
+
+      
+
+
+
+
+
+      node[shape="ellipse"]
+      
+
+      
+
+      
+        "app.maps" -> "ModalGmapController"
+      
+        "app.maps" -> "VectorMapController"
+      
+
+      
+
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      node[shape="ellipse",style="filled", color=8]
+      
+
+      
+
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "ModalGmapController"
+        
+          "$modal"[label="$modal"]
+          "$modal" -> "ModalGmapController"
+        
+          "gmap"[label="gmap"]
+          "gmap" -> "ModalGmapController"
+        
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "VectorMapController"
+        
+      
+
+      
+
+      
+
+      
+
+    
+      
+
+      
+        "DataTableController"[label="DataTableController", color=4]
+      
+        "NGGridController"[label="NGGridController", color=4]
+      
+        "NGTableCtrl"[label="NGTableCtrl", color=4]
+      
+        "TablexEditableController"[label="TablexEditableController", color=4]
+      
+
+      
+        "ngTableDataService"[label="ngTableDataService", color=5]
+      
+
+      
+
+
+      node[shape="cds"]
+
+      
+
+      
+
+
+
+
+
+      node[shape="ellipse"]
+      
+
+      
+
+      
+        "app.tables" -> "DataTableController"
+      
+        "app.tables" -> "NGGridController"
+      
+        "app.tables" -> "NGTableCtrl"
+      
+        "app.tables" -> "TablexEditableController"
+      
+
+      
+        "app.tables" -> "ngTableDataService"
+      
+
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      node[shape="ellipse",style="filled", color=8]
+      
+
+      
+
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "DataTableController"
+        
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "NGGridController"
+        
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "NGTableCtrl"
+        
+          "ngTableParams"[label="ngTableParams"]
+          "ngTableParams" -> "NGTableCtrl"
+        
+          "$resource"[label="$resource"]
+          "$resource" -> "NGTableCtrl"
+        
+          "ngTableDataService"[label="ngTableDataService"]
+          "ngTableDataService" -> "NGTableCtrl"
+        
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "TablexEditableController"
+        
+          "editableOptions"[label="editableOptions"]
+          "editableOptions" -> "TablexEditableController"
+        
+          "editableThemes"[label="editableThemes"]
+          "editableThemes" -> "TablexEditableController"
+        
+      
+
+      
+        
+      
+
+      
+
+      
+
+    
+      
+
+      
+        "SidebarController"[label="SidebarController", color=4]
+      
+        "UserBlockController"[label="UserBlockController", color=4]
+      
+
+      
+
+      
+
+
+      node[shape="cds"]
+
+      
+
+      
+
+
+
+
+
+      node[shape="ellipse"]
+      
+
+      
+
+      
+        "app.sidebar" -> "SidebarController"
+      
+        "app.sidebar" -> "UserBlockController"
+      
+
+      
+
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      node[shape="ellipse",style="filled", color=8]
+      
+
+      
+
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "SidebarController"
+        
+          "$state"[label="$state"]
+          "$state" -> "SidebarController"
+        
+          "Utils"[label="Utils"]
+          "Utils" -> "SidebarController"
+        
+      
+        
+          "$scope"[label="$scope"]
+          "$scope" -> "UserBlockController"
+        
+      
+
+      
+
+      
+
+      
+
+    
+      
+
+      
+
+      
+
+      
+
+
+      node[shape="cds"]
+
+      
+
+      
+
+
+
+
+
+      node[shape="ellipse"]
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+      node[shape="ellipse",style="filled", color=8]
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+    
+}

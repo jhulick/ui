@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - directives/panel-tools.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>directives/panel-tools.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">72.76</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">254</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">28.90</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.55</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**=========================================================
+ * Module panel-tools.js
+ * Directive tools to control panels.
+ * Allows collapse, refresh and dismiss (remove)
+ * Saves panel state in browser storage
+ =========================================================*/
+
+(function () {
+    &#039;use strict&#039;;
+
+    angular
+        .module(&#039;max-ui&#039;)
+        .directive(&#039;paneltool&#039;, Paneltool);
+
+    Paneltool.$inject = [&#039;$compile&#039;, &#039;$timeout&#039;];
+
+    function Paneltool($compile, $timeout) {
+
+        var templates = {
+            /* jshint multistr: true */
+            collapse: &quot;&lt;a href=&#039;#&#039; panel-collapse=&#039;&#039; data-toggle=&#039;tooltip&#039; title=&#039;Collapse Panel&#039; ng-click=&#039;{{panelId}} = !{{panelId}}&#039; ng-init=&#039;{{panelId}}=false&#039;&gt; \
+                            &lt;em ng-show=&#039;{{panelId}}&#039; class=&#039;fa fa-plus&#039;&gt;&lt;/em&gt; \
+                            &lt;em ng-show=&#039;!{{panelId}}&#039; class=&#039;fa fa-minus&#039;&gt;&lt;/em&gt; \
+                          &lt;/a&gt;&quot;,
+            dismiss: &quot;&lt;a href=&#039;#&#039; panel-dismiss=&#039;&#039; data-toggle=&#039;tooltip&#039; title=&#039;Close Panel&#039;&gt;\
+                           &lt;em class=&#039;fa fa-times&#039;&gt;&lt;/em&gt;\
+                         &lt;/a&gt;&quot;,
+            refresh: &quot;&lt;a href=&#039;#&#039; panel-refresh=&#039;&#039; data-toggle=&#039;tooltip&#039; data-spinner=&#039;{{spinner}}&#039; title=&#039;Refresh Panel&#039;&gt;\
+                           &lt;em class=&#039;fa fa-refresh&#039;&gt;&lt;/em&gt;\
+                         &lt;/a&gt;&quot;
+        };
+        var directive = {
+            link: link,
+            restrict: &#039;E&#039;
+        };
+        return directive;
+
+        /////////////////////////////////////
+
+        function link(scope, element, attrs) {
+            var tools = scope.panelTools || attrs;
+
+            $timeout(function () {
+                element.html(getTemplate(element, tools)).show();
+                $compile(element.contents())(scope);
+
+                element.addClass(&#039;pull-right&#039;);
+            });
+        }
+
+        function getTemplate(elem, attrs) {
+            var temp = &#039;&#039;;
+            attrs = attrs || {};
+            if (attrs.toolCollapse) {
+                temp += templates.collapse.replace(/{{panelId}}/g, (elem.parent().parent().attr(&#039;id&#039;)));
+            }
+            if (attrs.toolDismiss) {
+                temp += templates.dismiss;
+            }
+            if (attrs.toolRefresh) {
+                temp += templates.refresh.replace(/{{spinner}}/g, attrs.toolRefresh);
+            }
+            return temp;
+        }
+    }
+})();
+
+
+/**=========================================================
+ * Dismiss panels * [panel-dismiss]
+ =========================================================*/
+(function () {
+    &#039;use strict&#039;;
+
+    angular
+        .module(&#039;max-ui&#039;)
+        .directive(&#039;panelDismiss&#039;, PanelDismiss);
+
+    PanelDismiss.$inject = [&#039;$q&#039;];
+
+    function PanelDismiss($q) {
+
+        var directive = {
+            controller: controller,
+            restrict: &#039;A&#039;
+        };
+        return directive;
+
+        /////////////////////////////////////
+
+        function controller($scope, $element) {
+            var removeEvent = &#039;panel-remove&#039;,
+                removedEvent = &#039;panel-removed&#039;;
+
+            $element.on(&#039;click&#039;, function () {
+
+                // find the first parent panel
+                var parent = $(this).closest(&#039;.panel&#039;);
+
+                removeElement();
+
+                function removeElement() {
+                    var deferred = $q.defer();
+                    var promise = deferred.promise;
+
+                    // Communicate event destroying panel
+                    $scope.$emit(removeEvent, parent.attr(&#039;id&#039;), deferred);
+                    promise.then(destroyMiddleware);
+                }
+
+                // Run the animation before destroy the panel
+                function destroyMiddleware() {
+                    if ($.support.animation) {
+                        parent.animo({animation: &#039;bounceOut&#039;}, destroyPanel);
+                    }
+                    else destroyPanel();
+                }
+
+                function destroyPanel() {
+                    var col = parent.parent();
+                    parent.remove();
+                    // remove the parent if it is a row and is empty and not a sortable (portlet)
+                    col
+                        .filter(function () {
+                            var el = $(this);
+                            return (el.is(&#039;[class*=&quot;col-&quot;]:not(.sortable)&#039;) &amp;&amp; el.children(&#039;*&#039;).length === 0);
+                        }).remove();
+
+                    // Communicate event destroyed panel
+                    $scope.$emit(removedEvent, parent.attr(&#039;id&#039;));
+                }
+            });
+        }
+    }
+})();
+
+/**=========================================================
+ * Collapse panels * [panel-collapse]
+ =========================================================*/
+(function () {
+    &#039;use strict&#039;;
+
+    angular
+        .module(&#039;max-ui&#039;)
+        .directive(&#039;panelCollapse&#039;, PanelCollapse);
+
+    PanelCollapse.$inject = [&#039;$timeout&#039;];
+
+    function PanelCollapse($timeout) {
+
+        var storageKeyName = &#039;panelState&#039;,
+            storage;
+
+        var directive = {
+            controller: controller,
+            restrict: &#039;A&#039;
+        };
+        return directive;
+
+        /////////////////////////////////////
+
+        function controller($scope, $element) {
+
+            // Prepare the panel to be collapsible
+            var $elem = $($element),
+                parent = $elem.closest(&#039;.panel&#039;), // find the first parent panel
+                panelId = parent.attr(&#039;id&#039;);
+
+            storage = $scope.$storage;
+
+            // Load the saved state if exists
+            var currentState = loadPanelState(panelId);
+            if (typeof currentState !== undefined) {
+                $timeout(function () {
+                    $scope[panelId] = currentState;
+                }, 10);
+            }
+
+            // bind events to switch icons
+            $element.bind(&#039;click&#039;, function () {
+                savePanelState(panelId, !$scope[panelId]);
+            });
+        }
+
+        function savePanelState(id, state) {
+            if (!id) return false;
+            var data = angular.fromJson(storage[storageKeyName]);
+            if (!data) {
+                data = {};
+            }
+            data[id] = state;
+            storage[storageKeyName] = angular.toJson(data);
+        }
+
+        function loadPanelState(id) {
+            if (!id) return false;
+            var data = angular.fromJson(storage[storageKeyName]);
+            if (data) {
+                return data[id];
+            }
+        }
+
+    }
+})();
+
+
+/**=========================================================
+ * Refresh panels
+ * [panel-refresh] * [data-spinner=&quot;standard&quot;]
+ =========================================================*/
+(function () {
+    &#039;use strict&#039;;
+
+    angular
+        .module(&#039;max-ui&#039;)
+        .directive(&#039;panelRefresh&#039;, PanelRefresh);
+
+    PanelRefresh.$inject = [&#039;$q&#039;];
+
+    function PanelRefresh($q) {
+
+        var directive = {
+            controller: controller,
+            restrict: &#039;A&#039;
+        };
+        return directive;
+
+        /////////////////////////////////////
+
+        function controller($scope, $element) {
+            var refreshEvent = &#039;panel-refresh&#039;,
+                whirlClass = &#039;whirl&#039;,
+                defaultSpinner = &#039;standard&#039;;
+
+            // catch clicks to toggle panel refresh
+            $element.on(&#039;click&#039;, function () {
+                var $this = $(this),
+                    panel = $this.parents(&#039;.panel&#039;).eq(0),
+                    spinner = $this.data(&#039;spinner&#039;) || defaultSpinner;
+
+                // start showing the spinner
+                panel.addClass(whirlClass + &#039; &#039; + spinner);
+
+                // Emit event when refresh clicked
+                $scope.$emit(refreshEvent, panel.attr(&#039;id&#039;));
+            });
+
+            // listen to remove spinner
+            $scope.$on(&#039;removeSpinner&#039;, removeSpinner);
+
+            // method to clear the spinner when done
+            function removeSpinner(ev, id) {
+                if (!id) return;
+                var newid = id.charAt(0) == &#039;#&#039; ? id : (&#039;#&#039; + id);
+                angular
+                    .element(newid)
+                    .removeClass(whirlClass);
+            }
+        }
+    }
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

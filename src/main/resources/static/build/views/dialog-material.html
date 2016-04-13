@@ -1,0 +1,50 @@
+
+<h3>Material Dialog</h3>
+<!-- START row-->
+<div class="row">
+  <div class="col-md-12">
+    <!-- START panel-->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Basic Usage</h3>
+      </div>
+      <div class="panel-body">
+        <div layout="column" class="doc-content dialogdemoBasicUsage">
+          <div flex layout="column" style="zindex:1">
+
+            <div ng-controller="DialogMaterialCtrl" class="full" layout="column" layout-margin>
+              <p class="inset">
+                Open a dialog over the app's content. Press escape or click outside to close the dialog and
+                send focus back to the triggering button.
+              </p>
+
+              <div layout="column" layout-align="center" >
+                <md-button class="md-primary" ng-click="showAlert($event)">
+                  Alert Dialog
+                </md-button>
+                <div class="gap"></div>
+                <md-button class="md-primary" ng-click="showConfirm($event)">
+                  Confirm Dialog
+                </md-button>
+                <div class="gap"></div>
+                <md-button class="md-primary" ng-click="showAdvanced($event)">
+                  Custom Dialog
+                </md-button>
+              </div>
+
+              <br/>
+              <b layout="row" layout-align="center center" layout-margin>
+                {{alert}}
+              </b>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END panel-->
+  </div>
+</div>
+
+

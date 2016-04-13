@@ -1,0 +1,101 @@
+digraph dependencies {
+  node[shape="component",style="filled",colorscheme=paired12]
+
+
+    node[shape="component"]
+    "app.tables"[label="app.tables", color=1]
+
+    
+
+
+    node[shape="ellipse"]
+    
+
+
+    
+      "DataTableController"[label="DataTableController", color=4]
+      "app.tables" -> "DataTableController"
+    
+      "NGGridController"[label="NGGridController", color=4]
+      "app.tables" -> "NGGridController"
+    
+      "NGTableCtrl"[label="NGTableCtrl", color=4]
+      "app.tables" -> "NGTableCtrl"
+    
+      "TablexEditableController"[label="TablexEditableController", color=4]
+      "app.tables" -> "TablexEditableController"
+    
+
+    
+      "ngTableDataService"[label="ngTableDataService", color=5]
+      "app.tables" -> "ngTableDataService"
+    
+
+    
+
+    node[shape="cds"]
+    
+
+    
+
+
+
+
+
+
+
+
+
+    node[shape="ellipse",style="filled", color=9]
+    
+
+    
+
+
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "DataTableController"
+      
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "NGGridController"
+      
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "NGTableCtrl"
+      
+        "ngTableParams"[label="ngTableParams"]
+        "ngTableParams" -> "NGTableCtrl"
+      
+        "$resource"[label="$resource"]
+        "$resource" -> "NGTableCtrl"
+      
+        "ngTableDataService"[label="ngTableDataService"]
+        "ngTableDataService" -> "NGTableCtrl"
+      
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "TablexEditableController"
+      
+        "editableOptions"[label="editableOptions"]
+        "editableOptions" -> "TablexEditableController"
+      
+        "editableThemes"[label="editableThemes"]
+        "editableThemes" -> "TablexEditableController"
+      
+    
+
+    
+      
+    
+
+    
+
+    
+
+
+}

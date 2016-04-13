@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/dataservice.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/dataservice.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">53.08</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">688</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">14.78</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">5.93</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * @ngdoc service
+ * @name dataservice
+ * @description
+ *     Application data API.
+ */
+(function() {
+    &#039;use strict&#039;;
+
+    angular
+        .module(&#039;app.core&#039;)
+        .factory(&#039;dataservice&#039;, dataservice);
+
+    dataservice.$inject = [&#039;$http&#039;, &#039;$location&#039;, &#039;$q&#039;, &#039;exception&#039;, &#039;logger&#039;];
+
+    /**
+     * @ngdoc method
+     * @name dataservice#dataservice
+     * @description
+     *     Configures the dataservice.
+     * @param  {[type]} $http
+     * @param  {[type]} $location
+     * @param  {[type]} $q
+     * @param  {[type]} exception
+     * @param  {[type]} logger
+     * @return {Object} dataservice service
+     */
+    /* @ngInject */
+    function dataservice($http, $location, $q, exception, logger) {
+        var isPrimed = false;
+        var primePromise;
+
+        var service = {
+            getCustomersCast: getCustomersCast,
+            getPeople: getPeople,
+            getCities: getCities,
+            getStates: getStates,
+            getCustomerCount: getCustomerCount,
+            getPeopleCount: getPeopleCount,
+            getCustomers: getCustomers,
+            getMessageCount: getMessageCount,
+            getGridData: getGridData,
+            ready: ready
+        };
+
+        return service;
+
+        //================================================================
+
+        function getMessageCount() { return $q.when(72); }
+
+        function getCustomers() {
+            return $http.get(&#039;/api/maa&#039;)
+                .then(getCustomersComplete)
+                .catch(function(message) {
+                    exception.catcher(&#039;XHR Failed for getCustomers&#039;)(message);
+                    $location.url(&#039;/&#039;);
+                });
+
+            function getCustomersComplete(data, status, headers, config) {
+                return data.data[0].data.results;
+            }
+        }
+
+        function getCities() {
+            return $http.get(&#039;/api/cities&#039;)
+                .then(getCitiesComplete)
+                .catch(function(message) {
+                    exception.catcher(&#039;XHR Failed for getCities&#039;)(message);
+                    $location.url(&#039;/&#039;);
+                });
+
+            function getCitiesComplete(data, status, headers, config) {
+                return data.data[0].data.results;
+            }
+        }
+
+        function getStates() {
+            return $http.get(&#039;/api/states&#039;)
+                .then(getStatesComplete)
+                .catch(function(message) {
+                    exception.catcher(&#039;XHR Failed for getStates&#039;)(message);
+                    $location.url(&#039;/&#039;);
+                });
+
+            function getStatesComplete(data, status, headers, config) {
+                return data.data[0].data.results;
+            }
+        }
+
+        function getCustomerCount() {
+            var count = 0;
+            return getCustomersCast()
+                .then(getCustomersCastComplete)
+                .catch(exception.catcher(&#039;XHR Failed for getCustomerCount&#039;));
+
+            function getCustomersCastComplete (data) {
+                count = data.length;
+                return $q.when(count);
+            }
+        }
+
+        function getCustomersQuery() {
+            var query = breeze.EntityQuery
+                .from(&quot;Customers&quot;)
+                .toType(&quot;Customer&quot;)
+                .using(manager);
+            return query;
+        }
+
+        function getPeopleCount() {
+            var count = 0;
+            return getPeople()
+                .then(getPeopleComplete)
+                .catch(exception.catcher(&#039;XHR Failed for getPeopleCount&#039;));
+
+            function getPeopleComplete (data) {
+                count = data.length;
+                return $q.when(count);
+            }
+        }
+
+        function getCustomersCast() {
+
+            var cast = [
+                {name: &#039;Robert Downey Jr.&#039;, character: &#039;Tony Stark / Iron Man&#039;},
+                {name: &#039;Chris Hemsworth&#039;, character: &#039;Thor&#039;},
+                {name: &#039;Chris Evans&#039;, character: &#039;Steve Rogers / Captain America&#039;},
+                {name: &#039;Mark Ruffalo&#039;, character: &#039;Bruce Banner / The Hulk&#039;},
+                {name: &#039;Scarlett Johansson&#039;, character: &#039;Natasha Romanoff / Black Widow&#039;},
+                {name: &#039;Jeremy Renner&#039;, character: &#039;Clint Barton / Hawkeye&#039;},
+                {name: &#039;Gwyneth Paltrow&#039;, character: &#039;Pepper Potts&#039;},
+                {name: &#039;Samuel L. Jackson&#039;, character: &#039;Nick Fury&#039;},
+                {name: &#039;Paul Bettany&#039;, character: &#039;Jarvis&#039;},
+                {name: &#039;Tom Hiddleston&#039;, character: &#039;Loki&#039;},
+                {name: &#039;Clark Gregg&#039;, character: &#039;Agent Phil Coulson&#039;}
+            ];
+            return $q.when(cast);
+        }
+
+        function getPeople() {
+
+            var people = [
+                { firstName: &#039;Ida&#039;, lastName: &#039;Black&#039;, agency: &#039;OMB&#039;, deanDiddy: &quot;yes&quot; },
+                { firstName: &#039;Norma&#039;, lastName: &#039;Burke&#039;, agency: &#039;OMB&#039;, deanDiddy: &quot;yes&quot; },
+                { firstName: &#039;Curtis&#039;, lastName: &#039;Stevens&#039;, agency: &#039;OMB&#039;, deanDiddy: &quot;yes&quot; },
+                { firstName: &#039;Max&#039;, lastName: &#039;Douglas&#039;, agency: &#039;OMB&#039;, deanDiddy: &quot;yes&quot; },
+                { firstName: &#039;Joann&#039;, lastName: &#039;Morgan&#039;, agency: &#039;OMB&#039;, deanDiddy: &quot;yes&quot; },
+                { firstName: &#039;Emily&#039;, lastName: &#039;Henderson&#039;, agency: &#039;OMB&#039;, deanDiddy: &quot;yes&quot; },
+                { firstName: &#039;William&#039;, lastName: &#039;Watkins&#039;, agency: &#039;OMB&#039;, deanDiddy: &quot;yes&quot; }
+            ];
+
+            return $q.when(people);
+        }
+
+        function getGridData() {
+            var data = [
+                {
+                    &quot;id&quot; : &quot;2&quot;,
+                    &quot;Address&quot; : &quot;Adenauerallee 900&quot;,
+                    &quot;City&quot; : &quot;Stuttgart&quot;,
+                    &quot;CompanyName&quot; : &quot;Die Wandernde Kuh&quot;,
+                    &quot;ContactName&quot; : &quot;Rita Müller&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Representative&quot;,
+                    &quot;Country&quot; : &quot;Germany&quot;,
+                    &quot;CustomerID&quot; : &quot;729de505-ea6d-4cdf-89f6-0360ad37bde7&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;WANDK&quot;,
+                    &quot;Fax&quot; : &quot;0711-035428&quot;,
+                    &quot;Phone&quot; : &quot;0711-020361&quot;,
+                    &quot;PostalCode&quot; : &quot;70563&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 2
+                },
+                {
+                    &quot;id&quot; : &quot;3&quot;,
+                    &quot;Address&quot; : &quot;Boulevard Tirou, 255&quot;,
+                    &quot;City&quot; : &quot;Charleroi&quot;,
+                    &quot;CompanyName&quot; : &quot;Suprêmes délices&quot;,
+                    &quot;ContactName&quot; : &quot;Pascale Cartrain&quot;,
+                    &quot;ContactTitle&quot; : &quot;Accounting Manager&quot;,
+                    &quot;Country&quot; : &quot;Belgium&quot;,
+                    &quot;CustomerID&quot; : &quot;cd98057f-b5c2-49f4-a235-05d155e636df&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;SUPRD&quot;,
+                    &quot;Fax&quot; : &quot;(071) 23 67 22 21&quot;,
+                    &quot;Phone&quot; : &quot;(071) 23 67 22 20&quot;,
+                    &quot;PostalCode&quot; : &quot;B-6000&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;id&quot; : &quot;4&quot;,
+                    &quot;Address&quot; : &quot;Via Monte Bianco 34&quot;,
+                    &quot;City&quot; : &quot;Torino&quot;,
+                    &quot;CompanyName&quot; : &quot;Franchi S.p.A.&quot;,
+                    &quot;ContactName&quot; : &quot;Paolo Accorti&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Representative&quot;,
+                    &quot;Country&quot; : &quot;Italy&quot;,
+                    &quot;CustomerID&quot; : &quot;9d4d6598-b6c2-4b52-890b-0636b23ec85b&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;FRANS&quot;,
+                    &quot;Fax&quot; : &quot;011-4988261&quot;,
+                    &quot;Phone&quot; : &quot;011-4988260&quot;,
+                    &quot;PostalCode&quot; : &quot;10100&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;5&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer&quot;,
+                    &quot;Address&quot; : &quot;Obere Str. 57&quot;,
+                    &quot;City&quot; : &quot;Berlin&quot;,
+                    &quot;CompanyName&quot; : &quot;Alfreds Futterkiste&quot;,
+                    &quot;ContactName&quot; : &quot;Maria K. Anders&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Representative&quot;,
+                    &quot;Country&quot; : &quot;Germany&quot;,
+                    &quot;CustomerID&quot; : &quot;785efa04-cbf2-4dd7-a7de-083ee17b6ad2&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;ALFKI&quot;,
+                    &quot;Fax&quot; : &quot;030-0076545&quot;,
+                    &quot;Phone&quot; : &quot;030-0074321&quot;,
+                    &quot;PostalCode&quot; : &quot;12209&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;6&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Taucherstraße 10&quot;,
+                    &quot;City&quot; : &quot;Cunewalded&quot;,
+                    &quot;CompanyName&quot; : &quot;QUICK-Stop&quot;,
+                    &quot;ContactName&quot; : &quot;Horst Kloss&quot;,
+                    &quot;ContactTitle&quot; : &quot;Accounting Manager&quot;,
+                    &quot;Country&quot; : &quot;Germany&quot;,
+                    &quot;CustomerID&quot; : &quot;f0f2274d-4d5b-4dde-a560-08ceeed406e0&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;QUICK&quot;,
+                    &quot;Fax&quot; : null,
+                    &quot;Phone&quot; : &quot;0372-035188&quot;,
+                    &quot;PostalCode&quot; : &quot;01307&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 1
+                },
+                {
+                    &quot;$id&quot; : &quot;7&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Hauptstr. 29&quot;,
+                    &quot;City&quot; : &quot;Bern&quot;,
+                    &quot;CompanyName&quot; : &quot;Chop-suey Chinese&quot;,
+                    &quot;ContactName&quot; : &quot;Yang Wang&quot;,
+                    &quot;ContactTitle&quot; : &quot;Owner&quot;,
+                    &quot;Country&quot; : &quot;Switzerland&quot;,
+                    &quot;CustomerID&quot; : &quot;eef42f9f-9d9d-4a38-96e8-0ad2200bccf0&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;CHOPS&quot;,
+                    &quot;Fax&quot; : null,
+                    &quot;Phone&quot; : &quot;0452-076545&quot;,
+                    &quot;PostalCode&quot; : &quot;3012&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 2
+                },
+                {
+                    &quot;$id&quot; : &quot;8&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;184, chaussée de Tournai&quot;,
+                    &quot;City&quot; : &quot;Lille&quot;,
+                    &quot;CompanyName&quot; : &quot;Folies gourmandes&quot;,
+                    &quot;ContactName&quot; : &quot;Martine Rancé&quot;,
+                    &quot;ContactTitle&quot; : &quot;Assistant Sales Agent&quot;,
+                    &quot;Country&quot; : &quot;France&quot;,
+                    &quot;CustomerID&quot; : &quot;e2c2f3a9-8b0b-4931-b234-0ba7f9ab5143&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;FOLIG&quot;,
+                    &quot;Fax&quot; : &quot;20.16.10.17&quot;,
+                    &quot;Phone&quot; : &quot;20.16.10.16&quot;,
+                    &quot;PostalCode&quot; : &quot;59000&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;9&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Maubelstr. 90&quot;,
+                    &quot;City&quot; : &quot;Brandenburg&quot;,
+                    &quot;CompanyName&quot; : &quot;Königlich Essen&quot;,
+                    &quot;ContactName&quot; : &quot;Philip Cramer&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Associate&quot;,
+                    &quot;Country&quot; : &quot;Germany&quot;,
+                    &quot;CustomerID&quot; : &quot;18346543-ae30-4b4b-a3ac-1212469f0049&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;KOENE&quot;,
+                    &quot;Fax&quot; : null,
+                    &quot;Phone&quot; : &quot;0555-09876&quot;,
+                    &quot;PostalCode&quot; : &quot;14776&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;10&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;12, rue des Bouchers&quot;,
+                    &quot;City&quot; : &quot;Marseille&quot;,
+                    &quot;CompanyName&quot; : &quot;Bon app&#039;&quot;,
+                    &quot;ContactName&quot; : &quot;Laurence Lebihan&quot;,
+                    &quot;ContactTitle&quot; : &quot;Owner&quot;,
+                    &quot;Country&quot; : &quot;France&quot;,
+                    &quot;CustomerID&quot; : &quot;2656afff-d8d3-4960-82cc-13d3b421aa03&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;BONAP&quot;,
+                    &quot;Fax&quot; : &quot;91.24.45.41&quot;,
+                    &quot;Phone&quot; : &quot;91.24.45.40&quot;,
+                    &quot;PostalCode&quot; : &quot;13008&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;11&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Mataderos  2312&quot;,
+                    &quot;City&quot; : &quot;México D.F.&quot;,
+                    &quot;CompanyName&quot; : &quot;Antonio Moreno Taquería&quot;,
+                    &quot;ContactName&quot; : &quot;Antonio Moreno&quot;,
+                    &quot;ContactTitle&quot; : &quot;Owner&quot;,
+                    &quot;Country&quot; : &quot;Mexico&quot;,
+                    &quot;CustomerID&quot; : &quot;b61cf396-206f-41a6-9766-168b5cbb8edd&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;ANTON&quot;,
+                    &quot;Fax&quot; : null,
+                    &quot;Phone&quot; : &quot;(5) 555-3932&quot;,
+                    &quot;PostalCode&quot; : &quot;05023&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;12&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Vinbæltet 34&quot;,
+                    &quot;City&quot; : &quot;Kobenhavn&quot;,
+                    &quot;CompanyName&quot; : &quot;Simons bistro&quot;,
+                    &quot;ContactName&quot; : &quot;Jytte Petersen&quot;,
+                    &quot;ContactTitle&quot; : &quot;Owner&quot;,
+                    &quot;Country&quot; : &quot;Denmark&quot;,
+                    &quot;CustomerID&quot; : &quot;657d32bc-158c-4d11-ac49-18981ce1e205&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;SIMOB&quot;,
+                    &quot;Fax&quot; : &quot;31 13 35 57&quot;,
+                    &quot;Phone&quot; : &quot;31 12 34 56&quot;,
+                    &quot;PostalCode&quot; : &quot;1734&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;13&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Berliner Platz 43&quot;,
+                    &quot;City&quot; : &quot;München&quot;,
+                    &quot;CompanyName&quot; : &quot;Frankenversand&quot;,
+                    &quot;ContactName&quot; : &quot;Peter Franken&quot;,
+                    &quot;ContactTitle&quot; : &quot;Marketing Manager&quot;,
+                    &quot;Country&quot; : &quot;Germany&quot;,
+                    &quot;CustomerID&quot; : &quot;d1afd4eb-c8ed-48c9-99b6-194661a899af&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;FRANK&quot;,
+                    &quot;Fax&quot; : &quot;089-0877451&quot;,
+                    &quot;Phone&quot; : &quot;089-0877310&quot;,
+                    &quot;PostalCode&quot; : &quot;80805&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;14&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;87 Polk St. Suite 5&quot;,
+                    &quot;City&quot; : &quot;San Francisco&quot;,
+                    &quot;CompanyName&quot; : &quot;Let&#039;s Stop N Shop&quot;,
+                    &quot;ContactName&quot; : &quot;Jaime Yorres&quot;,
+                    &quot;ContactTitle&quot; : &quot;Owner&quot;,
+                    &quot;Country&quot; : &quot;USA&quot;,
+                    &quot;CustomerID&quot; : &quot;c228b5da-bb34-44ed-86ae-1ac1af73bc02&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;LETSS&quot;,
+                    &quot;Fax&quot; : null,
+                    &quot;Phone&quot; : &quot;(415) 555-5938&quot;,
+                    &quot;PostalCode&quot; : &quot;94117&quot;,
+                    &quot;Region&quot; : &quot;CA&quot;,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;15&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Sierras de Granada 9993&quot;,
+                    &quot;City&quot; : &quot;México D.F.&quot;,
+                    &quot;CompanyName&quot; : &quot;Centro comercial Moctezuma&quot;,
+                    &quot;ContactName&quot; : &quot;Francisco Chang&quot;,
+                    &quot;ContactTitle&quot; : &quot;Marketing Manager&quot;,
+                    &quot;Country&quot; : &quot;Mexico&quot;,
+                    &quot;CustomerID&quot; : &quot;30d3f75e-3863-433f-92dc-1dd6b3e3d845&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;CENTC&quot;,
+                    &quot;Fax&quot; : &quot;(5) 555-7293&quot;,
+                    &quot;Phone&quot; : &quot;(5) 555-3392&quot;,
+                    &quot;PostalCode&quot; : &quot;05022&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;16&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Strada Provinciale 124&quot;,
+                    &quot;City&quot; : &quot;Reggio Emilia&quot;,
+                    &quot;CompanyName&quot; : &quot;Reggiani Caseifici&quot;,
+                    &quot;ContactName&quot; : &quot;Maurizio Moroni&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Associate&quot;,
+                    &quot;Country&quot; : &quot;Italy&quot;,
+                    &quot;CustomerID&quot; : &quot;7e3dd280-616f-4a80-857c-1ddad87082ef&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;REGGC&quot;,
+                    &quot;Fax&quot; : &quot;0522-556722&quot;,
+                    &quot;Phone&quot; : &quot;0522-556721&quot;,
+                    &quot;PostalCode&quot; : &quot;42100&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;17&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Rua do Mercado, 12&quot;,
+                    &quot;City&quot; : &quot;Resende&quot;,
+                    &quot;CompanyName&quot; : &quot;Wellington Importadora&quot;,
+                    &quot;ContactName&quot; : &quot;Paula Parente&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Manager&quot;,
+                    &quot;Country&quot; : &quot;Brazil&quot;,
+                    &quot;CustomerID&quot; : &quot;e14083ed-3011-409b-a03a-1f8a3dfe85b4&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;WELLI&quot;,
+                    &quot;Fax&quot; : null,
+                    &quot;Phone&quot; : &quot;(14) 555-8122&quot;,
+                    &quot;PostalCode&quot; : &quot;08737-363&quot;,
+                    &quot;Region&quot; : &quot;SP&quot;,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;18&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Estrada da saúde n. 58&quot;,
+                    &quot;City&quot; : &quot;Lisboa&quot;,
+                    &quot;CompanyName&quot; : &quot;Princesa Isabel Vinhos&quot;,
+                    &quot;ContactName&quot; : &quot;Isabel de Castro&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Representative&quot;,
+                    &quot;Country&quot; : &quot;Portugal&quot;,
+                    &quot;CustomerID&quot; : &quot;39cd4c6e-cb16-4c28-ac72-27137fc9b7c5&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;PRINI&quot;,
+                    &quot;Fax&quot; : null,
+                    &quot;Phone&quot; : &quot;(1) 356-5634&quot;,
+                    &quot;PostalCode&quot; : &quot;1756&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;19&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;2817 Milton Dr.&quot;,
+                    &quot;City&quot; : &quot;Albuquerque&quot;,
+                    &quot;CompanyName&quot; : &quot;Rattlesnake Canyon Grocery&quot;,
+                    &quot;ContactName&quot; : &quot;Paula Wilson&quot;,
+                    &quot;ContactTitle&quot; : &quot;Assistant Sales Representative&quot;,
+                    &quot;Country&quot; : &quot;USA&quot;,
+                    &quot;CustomerID&quot; : &quot;8681c215-653a-4df2-93e7-28d1ad3f74d8&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;RATTC&quot;,
+                    &quot;Fax&quot; : &quot;(505) 555-3620&quot;,
+                    &quot;Phone&quot; : &quot;(505) 555-5939&quot;,
+                    &quot;PostalCode&quot; : &quot;87110&quot;,
+                    &quot;Region&quot; : &quot;NM&quot;,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;20&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;5ª Ave. Los Palos Grandes&quot;,
+                    &quot;City&quot; : &quot;Caracas&quot;,
+                    &quot;CompanyName&quot; : &quot;GROSELLA-Restaurante&quot;,
+                    &quot;ContactName&quot; : &quot;Manuel Pereira&quot;,
+                    &quot;ContactTitle&quot; : &quot;Owner&quot;,
+                    &quot;Country&quot; : &quot;Venezuela&quot;,
+                    &quot;CustomerID&quot; : &quot;1dbda67d-c658-40f9-b210-29dc2d3a2dd2&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;GROSR&quot;,
+                    &quot;Fax&quot; : &quot;(2) 283-3397&quot;,
+                    &quot;Phone&quot; : &quot;(2) 283-2951&quot;,
+                    &quot;PostalCode&quot; : &quot;1081&quot;,
+                    &quot;Region&quot; : &quot;DF&quot;,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;21&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;55 Grizzly Peak Rd.&quot;,
+                    &quot;City&quot; : &quot;Butte&quot;,
+                    &quot;CompanyName&quot; : &quot;The Cracker Box&quot;,
+                    &quot;ContactName&quot; : &quot;Liu Wong&quot;,
+                    &quot;ContactTitle&quot; : &quot;Marketing Assistant&quot;,
+                    &quot;Country&quot; : &quot;USA&quot;,
+                    &quot;CustomerID&quot; : &quot;2b24bba4-df6b-4545-b8fb-2f8966d96f74&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;THECR&quot;,
+                    &quot;Fax&quot; : &quot;(406) 555-8083&quot;,
+                    &quot;Phone&quot; : &quot;(406) 555-5834&quot;,
+                    &quot;PostalCode&quot; : &quot;59801&quot;,
+                    &quot;Region&quot; : &quot;MT&quot;,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;22&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;ul. Filtrowa 68&quot;,
+                    &quot;City&quot; : &quot;Warszawa&quot;,
+                    &quot;CompanyName&quot; : &quot;Wolski Zajazd&quot;,
+                    &quot;ContactName&quot; : &quot;Zbyszek Piestrzeniewicz&quot;,
+                    &quot;ContactTitle&quot; : &quot;Owner&quot;,
+                    &quot;Country&quot; : &quot;Poland&quot;,
+                    &quot;CustomerID&quot; : &quot;a2ffbc41-55c1-432e-b33c-2ffb8b701588&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;WOLZA&quot;,
+                    &quot;Fax&quot; : &quot;(26) 642-7012&quot;,
+                    &quot;Phone&quot; : &quot;(26) 642-7012&quot;,
+                    &quot;PostalCode&quot; : &quot;01-012&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;23&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Ing. Gustavo Moncada 8585 Piso 20-A&quot;,
+                    &quot;City&quot; : &quot;Buenos Aires&quot;,
+                    &quot;CompanyName&quot; : &quot;Océano Atlántico Ltda.&quot;,
+                    &quot;ContactName&quot; : &quot;Yvonne Moncada&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Agent&quot;,
+                    &quot;Country&quot; : &quot;Argentina&quot;,
+                    &quot;CustomerID&quot; : &quot;c2e88671-4988-4594-a16d-3440c0c15246&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;OCEAN&quot;,
+                    &quot;Fax&quot; : &quot;(1) 135-5535&quot;,
+                    &quot;Phone&quot; : &quot;(1) 135-5333&quot;,
+                    &quot;PostalCode&quot; : &quot;1010&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;24&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Torikatu 38&quot;,
+                    &quot;City&quot; : &quot;Oulu&quot;,
+                    &quot;CompanyName&quot; : &quot;Wartian Herkku&quot;,
+                    &quot;ContactName&quot; : &quot;Pirkko Koskitalo&quot;,
+                    &quot;ContactTitle&quot; : &quot;Accounting Manager&quot;,
+                    &quot;Country&quot; : &quot;Finland&quot;,
+                    &quot;CustomerID&quot; : &quot;fbcf888c-7ee3-4b00-980e-373ce8b7817d&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;WARTH&quot;,
+                    &quot;Fax&quot; : &quot;981-443655&quot;,
+                    &quot;Phone&quot; : &quot;981-443655&quot;,
+                    &quot;PostalCode&quot; : &quot;90110&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;25&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Via Ludovico il Moro 22&quot;,
+                    &quot;City&quot; : &quot;Bergamo&quot;,
+                    &quot;CompanyName&quot; : &quot;Magazzini Alimentari Riuniti&quot;,
+                    &quot;ContactName&quot; : &quot;Giovanni Rovelli&quot;,
+                    &quot;ContactTitle&quot; : &quot;Marketing Manager&quot;,
+                    &quot;Country&quot; : &quot;Italy&quot;,
+                    &quot;CustomerID&quot; : &quot;8b570cc3-3276-42e6-9876-3a9a2ffe9b97&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;MAGAA&quot;,
+                    &quot;Fax&quot; : &quot;035-640231&quot;,
+                    &quot;Phone&quot; : &quot;035-640230&quot;,
+                    &quot;PostalCode&quot; : &quot;24100&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;26&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Av. Copacabana, 267&quot;,
+                    &quot;City&quot; : &quot;Rio de Janeiro&quot;,
+                    &quot;CompanyName&quot; : &quot;Ricardo Adocicados&quot;,
+                    &quot;ContactName&quot; : &quot;Janete Limeira&quot;,
+                    &quot;ContactTitle&quot; : &quot;Assistant Sales Agent&quot;,
+                    &quot;Country&quot; : &quot;Brazil&quot;,
+                    &quot;CustomerID&quot; : &quot;9682aee1-543d-4f68-9d12-3bb93b65ad00&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;RICAR&quot;,
+                    &quot;Fax&quot; : null,
+                    &quot;Phone&quot; : &quot;(21) 555-3412&quot;,
+                    &quot;PostalCode&quot; : &quot;02389-890&quot;,
+                    &quot;Region&quot; : &quot;RJ&quot;,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;27&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;24, place Kléber&quot;,
+                    &quot;City&quot; : &quot;Strasbourg&quot;,
+                    &quot;CompanyName&quot; : &quot;Blondesddsl père et fils&quot;,
+                    &quot;ContactName&quot; : &quot;Frédérique Citeaux&quot;,
+                    &quot;ContactTitle&quot; : &quot;Marketing Manager&quot;,
+                    &quot;Country&quot; : &quot;France&quot;,
+                    &quot;CustomerID&quot; : &quot;2477d007-f7f5-487e-945a-3dd466581813&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;BLONP&quot;,
+                    &quot;Fax&quot; : &quot;88.60.15.32&quot;,
+                    &quot;Phone&quot; : &quot;88.60.15.31&quot;,
+                    &quot;PostalCode&quot; : &quot;67000&quot;,
+                    &quot;Region&quot; : &quot;Sud&quot;,
+                    &quot;RowVersion&quot; : 1
+                },
+                {
+                    &quot;$id&quot; : &quot;28&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;P.O. Box 555&quot;,
+                    &quot;City&quot; : &quot;Lander&quot;,
+                    &quot;CompanyName&quot; : &quot;Split Rail Beer &amp; Ale&quot;,
+                    &quot;ContactName&quot; : &quot;Art Braunschweiger&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Manager&quot;,
+                    &quot;Country&quot; : &quot;USA&quot;,
+                    &quot;CustomerID&quot; : &quot;d45ca70d-466c-4bbe-be5b-466e44c7189d&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;SPLIR&quot;,
+                    &quot;Fax&quot; : &quot;(307) 555-6525&quot;,
+                    &quot;Phone&quot; : &quot;(307) 555-4680&quot;,
+                    &quot;PostalCode&quot; : &quot;82520&quot;,
+                    &quot;Region&quot; : &quot;WY&quot;,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;29&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;722 DaVinci Blvd.&quot;,
+                    &quot;City&quot; : &quot;Kirkland&quot;,
+                    &quot;CompanyName&quot; : &quot;Trail&#039;s Head Gourmet Provisioners&quot;,
+                    &quot;ContactName&quot; : &quot;Helvetius Nagy&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Associate&quot;,
+                    &quot;Country&quot; : &quot;USA&quot;,
+                    &quot;CustomerID&quot; : &quot;e9106364-b5da-4821-af56-46b40ad516c5&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;TRAIH&quot;,
+                    &quot;Fax&quot; : &quot;(206) 555-2174&quot;,
+                    &quot;Phone&quot; : &quot;(206) 555-8257&quot;,
+                    &quot;PostalCode&quot; : &quot;98034&quot;,
+                    &quot;Region&quot; : &quot;WA&quot;,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;30&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;Jardim das rosas n. 32&quot;,
+                    &quot;City&quot; : &quot;Lisboa&quot;,
+                    &quot;CompanyName&quot; : &quot;Furia Bacalhau e Frutos do Mar&quot;,
+                    &quot;ContactName&quot; : &quot;Lino Rodriguez&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Manager&quot;,
+                    &quot;Country&quot; : &quot;Portugal&quot;,
+                    &quot;CustomerID&quot; : &quot;e4d3273f-5832-4ed2-bc7c-4ce623711c43&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;FURIB&quot;,
+                    &quot;Fax&quot; : &quot;(1) 354-2535&quot;,
+                    &quot;Phone&quot; : &quot;(1) 354-2534&quot;,
+                    &quot;PostalCode&quot; : &quot;1675&quot;,
+                    &quot;Region&quot; : null,
+                    &quot;RowVersion&quot; : 0
+                },
+                {
+                    &quot;$id&quot; : &quot;31&quot;,
+                    &quot;$type&quot; : &quot;Models.MaxPaaS.SPA.Customer, Model_NorthwindIB_NH&quot;,
+                    &quot;Address&quot; : &quot;City Center Plaza 516 Main St.&quot;,
+                    &quot;City&quot; : &quot;Elgin&quot;,
+                    &quot;CompanyName&quot; : &quot;Hungry Coyote Import Store&quot;,
+                    &quot;ContactName&quot; : &quot;Yoshi Latimer&quot;,
+                    &quot;ContactTitle&quot; : &quot;Sales Representative&quot;,
+                    &quot;Country&quot; : &quot;USA&quot;,
+                    &quot;CustomerID&quot; : &quot;5249d1f9-8699-4500-98b3-4dbaa6d4edb3&quot;,
+                    &quot;CustomerID_OLD&quot; : &quot;HUNGC&quot;,
+                    &quot;Fax&quot; : &quot;(503) 555-2376&quot;,
+                    &quot;Phone&quot; : &quot;(503) 555-6874&quot;,
+                    &quot;PostalCode&quot; : &quot;97827&quot;,
+                    &quot;Region&quot; : &quot;OR&quot;,
+                    &quot;RowVersion&quot; : 0
+                }
+            ];
+
+            return data;
+        }
+
+        function prime() {
+            // This function can only be called once.
+            if (primePromise) {
+                return primePromise;
+            }
+
+            primePromise = $q.when(true).then(success);
+            return primePromise;
+
+            function success() {
+                isPrimed = true;
+                logger.info(&#039;Primed data&#039;);
+            }
+        }
+
+        function ready(nextPromises) {
+            var readyPromise = primePromise || prime();
+
+            return readyPromise
+                .then(function() { return $q.all(nextPromises); })
+                .catch(exception.catcher(&#039;&quot;ready&quot; function failed&#039;));
+        }
+
+    }
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

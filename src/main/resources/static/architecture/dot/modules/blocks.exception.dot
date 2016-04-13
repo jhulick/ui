@@ -1,0 +1,65 @@
+digraph dependencies {
+  node[shape="component",style="filled",colorscheme=paired12]
+
+
+    node[shape="component"]
+    "blocks.exception"[label="blocks.exception", color=1]
+
+    
+      "blocks.logger"[label="blocks.logger", color=1]
+      "blocks.logger" -> "blocks.exception"
+    
+
+
+    node[shape="ellipse"]
+    
+      "exceptionHandler"[label="exceptionHandler", fillcolor=2]
+      "blocks.exception" -> "exceptionHandler"
+    
+
+
+    
+
+    
+
+    
+      "exception"[label="exception", color=6]
+      "blocks.exception" -> "exception"
+    
+
+    node[shape="cds"]
+    
+
+    
+
+
+
+
+
+
+
+
+
+    node[shape="ellipse",style="filled", color=9]
+    
+      
+    
+
+    
+
+
+    
+
+    
+
+    
+      
+        "logger"[label="logger"]
+        "logger" -> "exception"
+      
+    
+
+    
+
+
+}

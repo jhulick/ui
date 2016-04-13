@@ -1,0 +1,77 @@
+
+<h3>Material Divider</h3>
+<!-- START row-->
+<div class="row">
+  <div class="col-md-12">
+    <!-- START panel-->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Basic Usage</h3>
+      </div>
+      <div class="panel-body">
+        <div layout="column" class="doc-content dividerdemoBasicUsage">
+          <div flex layout="column" style="zindex:1">
+
+
+            <div ng-controller="DividerMaterialCtrl">
+
+              <md-toolbar class="md-theme-light">
+                <h1 class="md-toolbar-tools">
+                  <span>Full Bleed</span>
+                </h1>
+              </md-toolbar>
+
+              <md-content>
+                <md-list>
+                  <md-item ng-repeat="item in messages">
+                    <md-item-content>
+                      <div class="md-tile-content">
+                        <h3>{{item.what}}</h3>
+                        <h4>{{item.who}}</h4>
+                        <p>
+                          {{item.notes}}
+                        </p>
+                      </div>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                  </md-item>
+                </md-list>
+              </md-content>
+
+              <md-toolbar class="md-theme-light">
+                <h1 class="md-toolbar-tools">
+                  <span>Inset</span>
+                </h1>
+              </md-toolbar>
+
+              <md-content>
+                <md-list>
+                  <md-item ng-repeat="item in messages">
+                    <md-item-content>
+                      <div class="md-tile-left">
+                        <img ng-src="{{item.face}}" class="face" alt="{{item.who}}">
+                      </div>
+                      <div class="md-tile-content">
+                        <h3>{{item.what}}</h3>
+                        <h4>{{item.who}}</h4>
+                        <p>
+                          {{item.notes}}
+                        </p>
+                      </div>
+                    </md-item-content>
+                    <md-divider md-inset ng-if="!$last"></md-divider>
+                  </md-item>
+                </md-list>
+              </md-content>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END panel-->
+  </div>
+</div>
+
+

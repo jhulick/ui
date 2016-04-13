@@ -1,0 +1,36 @@
+{
+  "name": "angular-diff-match-patch",
+  "authors": [
+    "Adam Weiss <cseadam@gmail.com>"
+  ],
+  "license": "MIT",
+  "version": "0.1.7",
+  "description": "An Angular module to use when dealing with google-diff-match-patch.",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "coverage"
+  ],
+  "main": "angular-diff-match-patch.js",
+  "dependencies": {
+    "angular": ">= 1.2.0 < 1.4.x",
+    "angular-mocks": ">= 1.2.0 < 1.4.x",
+    "google-diff-match-patch": "0.1.0"
+  },
+  "devDependencies": {
+    "angular-material": "0.6.1"
+  },
+  "homepage": "https://github.com/amweiss/angular-diff-match-patch",
+  "_release": "0.1.7",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.7",
+    "commit": "b0d4d8e91993b7157745d3a8e1a3124693dad1ab"
+  },
+  "_source": "git://github.com/amweiss/angular-diff-match-patch.git",
+  "_target": "0.1.7",
+  "_originalSource": "angular-diff-match-patch"
+}

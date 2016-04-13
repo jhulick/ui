@@ -1,0 +1,11 @@
+server:
+    port: 8081
+
+logging:
+    level:
+        org.springframework.security: DEBUG
+    file: ui.log
+
+application:
+    context:
+        root: "/ui/*"

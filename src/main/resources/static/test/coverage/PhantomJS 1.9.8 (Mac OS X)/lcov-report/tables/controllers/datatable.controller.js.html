@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tables/controllers/datatable.controller.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">tables/controllers/datatable.controller.js</span></h1>
+    <h2>
+        Statements: <span class="metric">48.48% <small>(16 / 33)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">44.44% <small>(4 / 9)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">50% <small>(16 / 32)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">tables/controllers/</a> &#187; datatable.controller.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**=========================================================
+ * Module: datatable,js
+ * Datatable component
+ =========================================================*/
+&nbsp;
+(function () {
+    'use strict';
+&nbsp;
+    angular
+        .module('app.tables')
+        .controller('DataTableController', DataTableController);
+&nbsp;
+    DataTableController.$inject = ['$scope', '$q', '$timeout', 'logger'];
+&nbsp;
+    function DataTableController($scope, $q, $timeout, logger) {
+&nbsp;
+        var vm = this;
+        vm.title = 'Datatables';
+&nbsp;
+        // Define global instance we'll use to destroy later
+        vm.dtInstance1;
+        vm.dtInstance2;
+        vm.dtInstance3;
+        vm.dtInstance4;
+&nbsp;
+        activate();
+&nbsp;
+        function activate() {
+            return init().then(<span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                logger.info('Activated Datatable View');</span>
+            });
+        }
+&nbsp;
+        /**
+         * Construct a few datatables.
+         * @returns {*}
+         */
+        function init() {
+            return $timeout(<span class="fstat-no" title="function not covered" >function () {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (!$.fn.dataTable) <span class="cstat-no" title="statement not covered" >return;</span></span>
+&nbsp;
+                /**
+                 * Zero configuration
+                 */
+<span class="cstat-no" title="statement not covered" >                vm.dtInstance1 = $('#datatable1').dataTable({</span>
+                    'paging': true,  // Table pagination
+                    'ordering': true,  // Column ordering
+                    'info': true,  // Bottom left status text
+                    // Text translation options
+                    // Note the required keywords between underscores (e.g _MENU_)
+                    oLanguage: {
+                        sSearch: 'Search all columns:',
+                        sLengthMenu: '_MENU_ records per page',
+                        info: 'Showing page _PAGE_ of _PAGES_',
+                        zeroRecords: 'Nothing found - sorry',
+                        infoEmpty: 'No records available',
+                        infoFiltered: '(filtered from _MAX_ total records)'
+                    }
+                });
+&nbsp;
+                /**
+                 * Filtering by Columns
+                 */
+<span class="cstat-no" title="statement not covered" >                vm.dtInstance2 = $('#datatable2').dataTable({</span>
+                    'paging': true,  // Table pagination
+                    'ordering': true,  // Column ordering
+                    'info': true,  // Bottom left status text
+                    // Text translation options
+                    // Note the required keywords between underscores (e.g _MENU_)
+                    oLanguage: {
+                        sSearch: 'Search all columns:',
+                        sLengthMenu: '_MENU_ records per page',
+                        info: 'Showing page _PAGE_ of _PAGES_',
+                        zeroRecords: 'Nothing found - sorry',
+                        infoEmpty: 'No records available',
+                        infoFiltered: '(filtered from _MAX_ total records)'
+                    }
+                });
+<span class="cstat-no" title="statement not covered" >                var inputSearchClass = 'datatable_input_col_search';</span>
+<span class="cstat-no" title="statement not covered" >                var columnInputs = $('tfoot .' + inputSearchClass);</span>
+&nbsp;
+                // On input keyup trigger filtering
+<span class="cstat-no" title="statement not covered" >                columnInputs.keyup(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    vm.dtInstance2.fnFilter(this.value, columnInputs.index(this));</span>
+                });
+&nbsp;
+                /**
+                 * Column Visibilty Extension
+                 */
+<span class="cstat-no" title="statement not covered" >                vm.dtInstance3 = $('#datatable3').dataTable({</span>
+                    'paging': true,  // Table pagination
+                    'ordering': true,  // Column ordering
+                    'info': true,  // Bottom left status text
+                    // Text translation options
+                    // Note the required keywords between underscores (e.g _MENU_)
+                    oLanguage: {
+                        sSearch: 'Search all columns:',
+                        sLengthMenu: '_MENU_ records per page',
+                        info: 'Showing page _PAGE_ of _PAGES_',
+                        zeroRecords: 'Nothing found - sorry',
+                        infoEmpty: 'No records available',
+                        infoFiltered: '(filtered from _MAX_ total records)'
+                    },
+                    // set columns options
+                    'aoColumns': [
+                        {'bVisible': false},
+                        {'bVisible': true},
+                        {'bVisible': true},
+                        {'bVisible': true},
+                        {'bVisible': true}
+                    ],
+                    sDom: 'C&lt;"clear"&gt;lfrtip',
+                    colVis: {
+                        order: 'alfa',
+                        'buttonText': 'Show/Hide Columns'
+                    }
+                });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                vm.dtInstance4 = $('#datatable4').dataTable({</span>
+                    'paging': true,  // Table pagination
+                    'ordering': true,  // Column ordering
+                    'info': true,  // Bottom left status text
+                    sAjaxSource: 'api/datatable',
+                    aoColumns: [
+                        {mData: 'engine'},
+                        {mData: 'browser'},
+                        {mData: 'platform'},
+                        {mData: 'version'},
+                        {mData: 'grade'}
+                    ]
+                });
+            }).then(<span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                console.log('Init complete');</span>
+            })
+        }
+&nbsp;
+        // When scope is destroyed we unload all DT instances
+        // Also ColVis requires special attention since it attaches
+        // elements to body and will not be removed after unload DT
+        $scope.$on('$destroy', <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >            vm.dtInstance1.fnDestroy();</span>
+<span class="cstat-no" title="statement not covered" >            vm.dtInstance2.fnDestroy();</span>
+<span class="cstat-no" title="statement not covered" >            vm.dtInstance3.fnDestroy();</span>
+<span class="cstat-no" title="statement not covered" >            vm.dtInstance4.fnDestroy();</span>
+<span class="cstat-no" title="statement not covered" >            $('[class*=ColVis]').remove();</span>
+        });
+&nbsp;
+    }
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Apr 30 2015 10:16:22 GMT-0400 (EDT)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

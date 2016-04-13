@@ -1,0 +1,114 @@
+digraph dependencies {
+  node[shape="component",style="filled",colorscheme=paired12]
+
+
+    node[shape="component"]
+    "app.core"[label="app.core", color=1]
+
+    
+      "ngAnimate"[label="ngAnimate", color=1]
+      "ngAnimate" -> "app.core"
+    
+      "ngStorage"[label="ngStorage", color=1]
+      "ngStorage" -> "app.core"
+    
+      "ngCookies"[label="ngCookies", color=1]
+      "ngCookies" -> "app.core"
+    
+      "ngSanitize"[label="ngSanitize", color=1]
+      "ngSanitize" -> "app.core"
+    
+      "ngResource"[label="ngResource", color=1]
+      "ngResource" -> "app.core"
+    
+      "ngAria"[label="ngAria", color=1]
+      "ngAria" -> "app.core"
+    
+      "blocks.exception"[label="blocks.exception", color=1]
+      "blocks.exception" -> "app.core"
+    
+      "blocks.logger"[label="blocks.logger", color=1]
+      "blocks.logger" -> "app.core"
+    
+      "pascalprecht.translate"[label="pascalprecht.translate", color=1]
+      "pascalprecht.translate" -> "app.core"
+    
+      "ui.bootstrap"[label="ui.bootstrap", color=1]
+      "ui.bootstrap" -> "app.core"
+    
+      "ui.router"[label="ui.router", color=1]
+      "ui.router" -> "app.core"
+    
+      "oc.lazyLoad"[label="oc.lazyLoad", color=1]
+      "oc.lazyLoad" -> "app.core"
+    
+      "cfp.loadingBar"[label="cfp.loadingBar", color=1]
+      "cfp.loadingBar" -> "app.core"
+    
+      "tmh.dynamicLocale"[label="tmh.dynamicLocale", color=1]
+      "tmh.dynamicLocale" -> "app.core"
+    
+      "ui.utils"[label="ui.utils", color=1]
+      "ui.utils" -> "app.core"
+    
+      "ngIdle"[label="ngIdle", color=1]
+      "ngIdle" -> "app.core"
+    
+
+
+    node[shape="ellipse"]
+    
+      "routerHelper"[label="routerHelper", fillcolor=2]
+      "app.core" -> "routerHelper"
+    
+
+
+    
+
+    
+
+    
+
+    node[shape="cds"]
+    
+
+    
+
+
+
+
+
+
+
+
+
+    node[shape="ellipse",style="filled", color=9]
+    
+      
+        "$locationProvider"[label="$locationProvider"]
+        "$locationProvider" -> "routerHelper"
+      
+        "$stateProvider"[label="$stateProvider"]
+        "$stateProvider" -> "routerHelper"
+      
+        "$urlRouterProvider"[label="$urlRouterProvider"]
+        "$urlRouterProvider" -> "routerHelper"
+      
+        "appRequires"[label="appRequires"]
+        "appRequires" -> "routerHelper"
+      
+    
+
+    
+
+
+    
+
+    
+
+    
+
+    
+
+
+}

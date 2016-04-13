@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for tables/controllers/xeditable.table.controller.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">tables/controllers/xeditable.table.controller.js</span></h1>
+    <h2>
+        Statements: <span class="metric">48.72% <small>(38 / 78)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 28)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">22.22% <small>(4 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">48.72% <small>(38 / 78)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">tables/controllers/</a> &#187; xeditable.table.controller.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**=========================================================
+ * Module: app.tables
+ * Provides a demo for xeditable tables
+ =========================================================*/
+&nbsp;
+(function () {
+    'use strict';
+&nbsp;
+    angular
+        .module('app.tables')
+        .controller('TablexEditableController', TablexEditableController);
+&nbsp;
+    TablexEditableController.$inject = ['$filter', '$q', 'logger', 'xEditableTableDataService'];
+&nbsp;
+    function TablexEditableController($filter, $q, logger, xEditableTableDataService) {
+        // required for inner references
+        var vm = this;
+&nbsp;
+        vm.title = "TablexEditable";
+        vm.loadGroups = loadGroups;
+        vm.showGroup = showGroup;
+        vm.showStatus = showStatus;
+        vm.checkName = checkName;
+        vm.saveUser = saveUser;
+        vm.removeUser = removeUser;
+        vm.addUser = addUser;
+        vm.saveColumn = saveColumn;
+        vm.filterUser = filterUser;
+        vm.deleteUser = deleteUser;
+        vm.cancel = cancel;
+        vm.saveTable = saveTable;
+&nbsp;
+        activate();
+&nbsp;
+        function activate() {
+            logger.info('Activated TablexEditableController View');
+            init();
+        }
+&nbsp;
+        /**
+         * Construct a few datatables.
+         * @returns {*}
+         */
+        function init() {
+            // editable row
+            // -----------------------------------
+            vm.users = [
+                {id: 1, name: 'awesome user1', status: 2, group: 4, groupName: 'admin'},
+                {id: 2, name: 'awesome user2', status: undefined, group: 3, groupName: 'vip'},
+                {id: 3, name: 'awesome user3', status: 2, group: null}
+            ];
+&nbsp;
+            vm.statuses = [
+                {value: 1, text: 'status1'},
+                {value: 2, text: 'status2'},
+                {value: 3, text: 'status3'},
+                {value: 4, text: 'status4'}
+            ];
+&nbsp;
+            vm.groups = [];
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function loadGroups() {</span>
+<span class="cstat-no" title="statement not covered" >            return vm.groups.length ? null :</span>
+                xEditableTableDataService.getData().then(<span class="fstat-no" title="function not covered" >function (data) {</span>
+<span class="cstat-no" title="statement not covered" >                    vm.groups = data;</span>
+                });
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function showGroup(user) {</span>
+<span class="cstat-no" title="statement not covered" >            if (user.group &amp;&amp; vm.groups.length) {</span>
+<span class="cstat-no" title="statement not covered" >                var selected = $filter('filter')(vm.groups, {id: user.group});</span>
+<span class="cstat-no" title="statement not covered" >                return selected.length ? selected[0].text : 'Not set';</span>
+            } else {
+<span class="cstat-no" title="statement not covered" >                return user.groupName || 'Not set';</span>
+            }
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function showStatus(user) {</span>
+<span class="cstat-no" title="statement not covered" >            var selected = [];</span>
+<span class="cstat-no" title="statement not covered" >            if (user.status) {</span>
+<span class="cstat-no" title="statement not covered" >                selected = $filter('filter')(vm.statuses, {value: user.status});</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return selected.length ? selected[0].text : 'Not set';</span>
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function checkName(data, id) {</span>
+<span class="cstat-no" title="statement not covered" >            if (id === 2 &amp;&amp; data !== 'awesome') {</span>
+<span class="cstat-no" title="statement not covered" >                return "Username 2 should be `awesome`";</span>
+            }
+        }
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function saveUser(data, id) {</span>
+            //$scope.user not updated yet
+<span class="cstat-no" title="statement not covered" >            angular.extend(data, {id: id});</span>
+<span class="cstat-no" title="statement not covered" >            logger.info('Saving user: ' + id);</span>
+            // return $http.post('/saveUser', data);
+        }
+&nbsp;
+        // remove user
+<span class="fstat-no" title="function not covered" >        function removeUser(index) {</span>
+<span class="cstat-no" title="statement not covered" >            vm.users.splice(index, 1);</span>
+        }
+&nbsp;
+        // add user
+<span class="fstat-no" title="function not covered" >        function addUser() {</span>
+<span class="cstat-no" title="statement not covered" >            vm.inserted = {</span>
+                id: vm.users.length + 1,
+                name: '',
+                status: null,
+                group: null,
+                isNew: true
+            };
+<span class="cstat-no" title="statement not covered" >            vm.users.push(vm.inserted);</span>
+        }
+&nbsp;
+        // editable column
+        // -----------------------------------
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function saveColumn(column) {</span>
+<span class="cstat-no" title="statement not covered" >            var results = [];</span>
+<span class="cstat-no" title="statement not covered" >            angular.forEach(vm.users, <span class="fstat-no" title="function not covered" >function (user) {</span></span>
+                // results.push($http.post('/saveColumn', {column: column, value: user[column], id: user.id}));
+<span class="cstat-no" title="statement not covered" >                logger.info('Saving column: ' + column);</span>
+            });
+<span class="cstat-no" title="statement not covered" >            return $q.all(results);</span>
+        }
+&nbsp;
+        // editable table
+        // -----------------------------------
+&nbsp;
+        // filter users to show
+<span class="fstat-no" title="function not covered" >        function filterUser(user) {</span>
+<span class="cstat-no" title="statement not covered" >            return user.isDeleted !== true;</span>
+        }
+&nbsp;
+        // mark user as deleted
+<span class="fstat-no" title="function not covered" >        function deleteUser(id) {</span>
+<span class="cstat-no" title="statement not covered" >            var filtered = $filter('filter')(vm.users, {id: id});</span>
+<span class="cstat-no" title="statement not covered" >            if (filtered.length) {</span>
+<span class="cstat-no" title="statement not covered" >                filtered[0].isDeleted = true;</span>
+            }
+        }
+&nbsp;
+        // cancel all changes
+<span class="fstat-no" title="function not covered" >        function cancel() {</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = vm.users.length; i--;) {</span>
+<span class="cstat-no" title="statement not covered" >                var user = vm.users[i];</span>
+                // undelete
+<span class="cstat-no" title="statement not covered" >                if (user.isDeleted) {</span>
+<span class="cstat-no" title="statement not covered" >                    delete user.isDeleted;</span>
+                }
+                // remove new
+<span class="cstat-no" title="statement not covered" >                if (user.isNew) {</span>
+<span class="cstat-no" title="statement not covered" >                    vm.users.splice(i, 1);</span>
+                }
+            }
+        }
+&nbsp;
+        // save edits
+<span class="fstat-no" title="function not covered" >        function saveTable() {</span>
+<span class="cstat-no" title="statement not covered" >            var results = [];</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = vm.users.length; i--;) {</span>
+<span class="cstat-no" title="statement not covered" >                var user = vm.users[i];</span>
+                // actually delete user
+<span class="cstat-no" title="statement not covered" >                if (user.isDeleted) {</span>
+<span class="cstat-no" title="statement not covered" >                    vm.users.splice(i, 1);</span>
+                }
+                // mark as not new
+<span class="cstat-no" title="statement not covered" >                if (user.isNew) {</span>
+<span class="cstat-no" title="statement not covered" >                    user.isNew = false;</span>
+                }
+&nbsp;
+                // send on server
+                // results.push($http.post('/saveUser', user));
+<span class="cstat-no" title="statement not covered" >                logger.info('Saving Table...');</span>
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return $q.all(results);</span>
+        }
+    }
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Apr 30 2015 10:16:22 GMT-0400 (EDT)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

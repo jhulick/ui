@@ -1,0 +1,92 @@
+digraph dependencies {
+  node[shape="component",style="filled",colorscheme=paired12]
+
+
+    node[shape="component"]
+    "app.layout"[label="app.layout", color=1]
+
+    
+
+
+    node[shape="ellipse"]
+    
+
+
+    
+      "AppController"[label="AppController", color=4]
+      "app.layout" -> "AppController"
+    
+      "SidebarController"[label="SidebarController", color=4]
+      "app.layout" -> "SidebarController"
+    
+
+    
+
+    
+
+    node[shape="cds"]
+    
+
+    
+
+
+
+
+
+
+
+
+
+    node[shape="ellipse",style="filled", color=9]
+    
+
+    
+
+
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "AppController"
+      
+        "$state"[label="$state"]
+        "$state" -> "AppController"
+      
+        "$translate"[label="$translate"]
+        "$translate" -> "AppController"
+      
+        "$localStorage"[label="$localStorage"]
+        "$localStorage" -> "AppController"
+      
+        "toggle"[label="toggle"]
+        "toggle" -> "AppController"
+      
+        "colors"[label="colors"]
+        "colors" -> "AppController"
+      
+        "browser"[label="browser"]
+        "browser" -> "AppController"
+      
+        "cfpLoadingBar"[label="cfpLoadingBar"]
+        "cfpLoadingBar" -> "AppController"
+      
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "SidebarController"
+      
+        "$state"[label="$state"]
+        "$state" -> "SidebarController"
+      
+        "Utils"[label="Utils"]
+        "Utils" -> "SidebarController"
+      
+    
+
+    
+
+    
+
+    
+
+
+}

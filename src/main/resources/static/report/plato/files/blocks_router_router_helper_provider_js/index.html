@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - blocks/router/router-helper.provider.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>blocks/router/router-helper.provider.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">72.32</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">227</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">36.16</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.63</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/* Help configure the state-base ui.router */
+(function () {
+    &#039;use strict&#039;;
+
+    angular
+        .module(&#039;app.core&#039;)
+        .provider(&#039;routerHelper&#039;, routerHelperProvider);
+
+    routerHelperProvider.$inject = [&#039;$locationProvider&#039;, &#039;$stateProvider&#039;, &#039;$urlRouterProvider&#039;, &#039;APP_REQUIRES&#039;];
+
+    /* @ngInject */
+    function routerHelperProvider($locationProvider, $stateProvider, $urlRouterProvider, appRequires) {
+
+        /* jshint validthis:true */
+        var config = {
+            docTitle: undefined,
+            resolveAlways: {}
+        };
+
+        // Set here the base of the relative path
+        // for all app views
+        this.basepath = function (uri) {
+            return &#039;../../build/views/&#039; + uri;
+        };
+
+        $locationProvider.html5Mode(true);
+
+        this.configure = function (cfg) {
+            angular.extend(config, cfg);
+        };
+
+        this.$get = RouterHelper;
+        RouterHelper.$inject = [&#039;$location&#039;, &#039;$rootScope&#039;, &#039;$state&#039;, &#039;logger&#039;];
+
+        /* @ngInject */
+        function RouterHelper($location, $rootScope, $state, logger) {
+            var handlingStateChangeError = false;
+            var hasOtherwise = false;
+            var stateCounts = {
+                errors: 0,
+                changes: 0
+            };
+
+            var service = {
+                configureStates: configureStates,
+                getStates: getStates,
+                resolveFor: resolveFor,
+                basepath: basepath,
+                stateCounts: stateCounts
+            };
+
+            init();
+
+            return service;
+
+            ///////////////
+
+            // Set here the base of the relative path
+            // for all app views
+            function basepath(uri) {
+                return &#039;build/views/&#039; + uri;
+            }
+
+            function configureStates(states, otherwisePath) {
+                states.forEach(function (state) {
+                    state.config.resolve =
+                        angular.extend(state.config.resolve || {}, config.resolveAlways);
+                    $stateProvider.state(state.state, state.config);
+                });
+                if (otherwisePath &amp;&amp; !hasOtherwise) {
+                    hasOtherwise = true;
+                    $urlRouterProvider.otherwise(otherwisePath);
+                }
+            }
+
+            function handleRoutingErrors() {
+                // Route cancellation:
+                // On routing error, go to the dashboard.
+                // Provide an exit clause if it tries to do it twice.
+                $rootScope.$on(&#039;$stateChangeError&#039;,
+                    function (event, toState, toParams, fromState, fromParams, error) {
+                        if (handlingStateChangeError) {
+                            return;
+                        }
+                        stateCounts.errors++;
+                        handlingStateChangeError = true;
+                        var destination = (toState &amp;&amp;
+                            (toState.title || toState.name || toState.loadedTemplateUrl)) ||
+                            &#039;unknown target&#039;;
+                        var msg = &#039;Error routing to &#039; + destination + &#039;. &#039; +
+                            (error.data || &#039;&#039;) + &#039;. &lt;br/&gt;&#039; + (error.statusText || &#039;&#039;) +
+                            &#039;: &#039; + (error.status || &#039;&#039;);
+                        logger.warning(msg, [toState]);
+                        $location.path(&#039;/&#039;);
+                    }
+                );
+            }
+
+            // Generates a resolve object by passing script names
+            // previously configured in constant.APP_REQUIRES
+            function resolveFor() {
+                var _args = arguments;
+                return {
+                    deps: [&#039;$ocLazyLoad&#039;, &#039;$q&#039;, function ($ocLL, $q) {
+                        // Creates a promise chain for each argument
+                        var promise = $q.when(1); // empty promise
+                        for (var i = 0, len = _args.length; i &lt; len; i++) {
+                            promise = andThen(_args[i]);
+                        }
+                        return promise;
+
+                        // creates promise to chain dynamically
+                        function andThen(_arg) {
+                            // also support a function that returns a promise
+                            if (typeof _arg == &#039;function&#039;) {
+                                return promise.then(_arg);
+                            } else {
+                                return promise.then(function () {
+                                    // if is a module, pass the name. If not, pass the array
+                                    var whatToLoad = getRequired(_arg);
+                                    // simple error check
+                                    if (!whatToLoad) return $.error(&#039;Route resolve: Bad resource name [&#039; + _arg + &#039;]&#039;);
+                                    // finally, return a promise
+                                    return $ocLL.load(whatToLoad);
+                                });
+                            }
+                        }
+
+                        // check and returns required data
+                        // analyze module items with the form [name: &#039;&#039;, files: []]
+                        // and also simple array of script files (for not angular js)
+                        function getRequired(name) {
+                            if (appRequires.modules) {
+                                for (var m in appRequires.modules) {
+                                    if (appRequires.modules[m].name &amp;&amp; appRequires.modules[m].name === name) {
+                                        return appRequires.modules[m];
+                                    }
+                                }
+                            }
+                            return appRequires.scripts &amp;&amp; appRequires.scripts[name];
+                        }
+
+                    }]
+                };
+            } // resolveFor
+
+            function init() {
+                handleRoutingErrors();
+                updateDocTitle();
+            }
+
+            function getStates() {
+                return $state.get();
+            }
+
+            function updateDocTitle() {
+                $rootScope.$on(&#039;$stateChangeSuccess&#039;,
+                    function (event, toState, toParams, fromState, fromParams) {
+                        stateCounts.changes++;
+                        handlingStateChangeError = false;
+                        var title = config.docTitle + &#039; &#039; + (toState.title || &#039;&#039;);
+                        $rootScope.title = title; // data bind to &lt;title&gt;
+                    }
+                );
+            }
+        }
+
+        this.configureStates = function (states, otherwisePath) {
+            states.forEach(function (state) {
+                state.config.resolve =
+                    angular.extend(state.config.resolve || {}, config.resolveAlways);
+                $stateProvider.state(state.state, state.config);
+            });
+            if (otherwisePath &amp;&amp; !hasOtherwise) {
+                hasOtherwise = true;
+                $urlRouterProvider.otherwise(otherwisePath);
+            }
+        }
+
+        // Generates a resolve object by passing script names
+        // previously configured in constant.APP_REQUIRES
+        this.resolveFor = function () {
+            var _args = arguments;
+            return {
+                deps: [&#039;$ocLazyLoad&#039;, &#039;$q&#039;, function ($ocLL, $q) {
+                    // Creates a promise chain for each argument
+                    var promise = $q.when(1); // empty promise
+                    for (var i = 0, len = _args.length; i &lt; len; i++) {
+                        promise = andThen(_args[i]);
+                    }
+                    return promise;
+
+                    // creates promise to chain dynamically
+                    function andThen(_arg) {
+                        // also support a function that returns a promise
+                        if (typeof _arg == &#039;function&#039;) {
+                            return promise.then(_arg);
+                        } else {
+                            return promise.then(function () {
+                                // if is a module, pass the name. If not, pass the array
+                                var whatToLoad = getRequired(_arg);
+                                // simple error check
+                                if (!whatToLoad) return $.error(&#039;Route resolve: Bad resource name [&#039; + _arg + &#039;]&#039;);
+                                // finally, return a promise
+                                return $ocLL.load(whatToLoad);
+                            });
+                        }
+                    }
+
+                    // check and returns required data
+                    // analyze module items with the form [name: &#039;&#039;, files: []]
+                    // and also simple array of script files (for not angular js)
+                    function getRequired(name) {
+                        if (appRequires.modules) {
+                            for (var m in appRequires.modules) {
+                                if (appRequires.modules[m].name &amp;&amp; appRequires.modules[m].name === name) {
+                                    return appRequires.modules[m];
+                                }
+                            }
+                        }
+                        return appRequires.scripts &amp;&amp; appRequires.scripts[name];
+                    }
+
+                }]
+            };
+        }; // resolveFor
+    }
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

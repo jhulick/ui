@@ -1,0 +1,71 @@
+digraph dependencies {
+  node[shape="component",style="filled",colorscheme=paired12]
+
+
+    node[shape="component"]
+    "app.sidebar"[label="app.sidebar", color=1]
+
+    
+
+
+    node[shape="ellipse"]
+    
+
+
+    
+      "SidebarController"[label="SidebarController", color=4]
+      "app.sidebar" -> "SidebarController"
+    
+      "UserBlockController"[label="UserBlockController", color=4]
+      "app.sidebar" -> "UserBlockController"
+    
+
+    
+
+    
+
+    node[shape="cds"]
+    
+
+    
+
+
+
+
+
+
+
+
+
+    node[shape="ellipse",style="filled", color=9]
+    
+
+    
+
+
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "SidebarController"
+      
+        "$state"[label="$state"]
+        "$state" -> "SidebarController"
+      
+        "Utils"[label="Utils"]
+        "Utils" -> "SidebarController"
+      
+    
+      
+        "$scope"[label="$scope"]
+        "$scope" -> "UserBlockController"
+      
+    
+
+    
+
+    
+
+    
+
+
+}
